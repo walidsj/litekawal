@@ -38,5 +38,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /app/.env
 /src/.env
 .env
-
 /.htaccess
