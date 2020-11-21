@@ -32,12 +32,10 @@ class Home extends CI_Controller
 		}
 
 		# processing input data
-		if ($validation->run()) {
+		if ($validation->run() == true) {
 		} else {
+			# load view
+			$this->load->view('pages/guest/home', $data);
 		}
-
-
-		# load view
-		$this->load->view('pages/guest/home', $data);
 	}
 }

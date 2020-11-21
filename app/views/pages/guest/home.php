@@ -35,26 +35,31 @@
                      <label for="tipe_lapor" class="d-block font-weight-bold">Detail Laporan</label>
                   </div>
                   <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Ketik Judul Laporan Kamu" required name="judul_laporan">
+                     <input type="text" class="form-control" placeholder="Ketik Judul Laporan Kamu" required name="judul_laporan" value="<?= set_value('judul_laporan'); ?>">
+                     <?= form_error('judul_laporan'); ?>
                   </div>
                   <div class="form-group">
-                     <textarea rows="6" class="form-control" placeholder="Ketik Isi Laporan Kamu" required name="isi_laporan"></textarea>
+                     <textarea rows="6" class="form-control" placeholder="Ketik Isi Laporan Kamu" required name="isi_laporan"><?= set_value('isi_laporan'); ?></textarea>
+                     <?= form_error('isi_laporan'); ?>
                   </div>
                   <?php if ($this->input->get('tipe') == 'pengaduan') : ?>
                      <div class="form-group">
-                        <input type="text" class="form-control datepicker" placeholder="Pilih Tanggal Kejadian" required name="tanggal_laporan" />
+                        <input type="text" class="form-control datepicker" placeholder="Pilih Tanggal Kejadian" required name="tanggal_laporan" value="<?= set_value('tanggal_laporan'); ?>">
+                        <?= form_error('tanggal_laporan'); ?>
                      </div>
-                     <div class="form-group">
-                        <input class="form-control" placeholder="Ketik Lokasi Kejadian" v-model="lokasiLaporan" :class="lokasiLaporan.length > 4 ? 'border-primary' : ''">
+                     <div class=" form-group">
+                        <input class="form-control" placeholder="Ketik Lokasi Kejadian" required name="lokasi_laporan" value="<?= set_value('lokasi_laporan'); ?>">
+                        <?= form_error('lokasi_laporan'); ?>
                      </div>
                   <?php endif; ?>
-                  <div class="form-group">
+                  <div class=" form-group">
                      <select class="form-control" data-placeholder="Pilih Instansi Tujuan" data-allow-clear="1" name="instansi_laporan">
                         <option></option>
                         <?php foreach ($instansiList as $instansi) : ?>
                            <option value="<?= $instansi->id_instansi; ?>"><?= $instansi->nama_instansi; ?></option>
                         <?php endforeach; ?>
                      </select>
+                     <?= form_error('instansi_laporan'); ?>
                   </div>
                   <div class="form-group">
                      <select class="form-control" data-placeholder="Pilih Kategori Laporan" data-allow-clear="1" name="kategori_laporan">
@@ -63,6 +68,7 @@
                            <option value="<?= $katlap->id_katlap; ?>"><?= $katlap->judul_katlap; ?></option>
                         <?php endforeach; ?>
                      </select>
+                     <?= form_error('kategori_laporan'); ?>
                   </div>
                   <div class="form-group mb-0">
                      <div class="row">
