@@ -17,11 +17,12 @@
    <?php $this->load->view('pages/guest/components/hero'); ?>
    <section id="gradient-white">
       <div class="container">
-         <div class="row justify-content-center mb-5">
+         <div class="row justify-content-center mb-4">
             <div class="col-md-7">
                <div id="card-form" class="card p-3 border-0 shadow rounded-lg">
                   <?= form_open(current_url() . '?' . $_SERVER['QUERY_STRING']); ?>
                   <div class="card-body">
+                     <hr class="lead-hr-gray">
                      <div class="form-group">
                         <label class="d-block font-weight-bold">Pilih Tipe Laporan</label>
                         <div class="input-group mb-3">
@@ -64,7 +65,7 @@
                         <select class="form-control" data-placeholder="Pilih Instansi Tujuan" data-allow-clear="1" name="instansi_lapor">
                            <option></option>
                            <?php foreach ($instansiList as $instansi) : ?>
-                              <option value="<?= $instansi->id_instansi; ?>" <?= (set_value('instansi_lapor') == $instansi->id_instansi) ? 'selected' : ''; ?>><?= $instansi->nama_instansi; ?></option>
+                              <option value="<?= $instansi->id_instansi; ?>" <?= (set_value('instansi_lapor') == $instansi->id_instansi) ? 'selected' : ''; ?>><?= $instansi->nama_instansi; ?> (<?= $instansi->singkatan_instansi; ?>)</option>
                            <?php endforeach; ?>
                         </select>
                         <?= form_error('instansi_lapor'); ?>
@@ -105,6 +106,7 @@
          </div>
       </div>
    </section>
+   <?php $this->load->view('pages/guest/components/counter'); ?>
    <?php $this->load->view('components/footer'); ?>
 
    <?php $this->load->view('pages/guest/components/modal_panduan'); ?>

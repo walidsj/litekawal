@@ -35,3 +35,5 @@ if ($('.navbar-sticky').length > 0) {
       last_scroll_top = scroll_top;
     });
   }
+
+$('.numscroller').countUp();

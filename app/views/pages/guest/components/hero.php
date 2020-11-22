@@ -3,10 +3,10 @@
    </div>
    <div class="container-fluid banner">
       <div class="px-2 py-5 text-center text-white">
-         <img class="d-block mx-auto mb-4" src="<?= base_url('public/assets/img/logo-stand.svg'); ?>" alt="" height="92">
-         <h2 class="title font-weight-bold">Layanan Aspirasi dan Pengaduan Staner</h2>
-         <p class="lead">Sampaikan laporan Kamu langsung kepada instansi Elemen Kampus</p>
-         <hr class="lead-hr">
+         <img class="d-block mx-auto mb-4" src="<?= base_url('public/assets/img/logo-stand.svg'); ?>" alt="<?= getenv('app.TitleName'); ?>" height="92">
+         <h2 class="title font-weight-bold">Kanal Aspirasi Mahasiswa</h2>
+         <p class="lead">Sampaikan laporan Kamu langsung ke Elemen Kampus PKN STAN</p>
+         <!-- <hr class="lead-hr"> -->
       </div>
    </div>
    <div class="container-fluid mx-0 px-0">

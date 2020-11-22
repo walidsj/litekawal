@@ -1,11 +1,11 @@
 <nav class="navbar navbar-dark navbar-sticky bg-transparent fixed-top border-0">
    <div class="container">
       <a class="navbar-brand" href="#">
-         <img src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" height="48" class="logo-warna" alt="<?= getenv('web.TitleName'); ?>" style="display: none;">
-         <img src="<?= base_url('public/assets/img/logo-putih.svg'); ?>" height="48" class="logo-putih" alt="<?= getenv('web.TitleName'); ?>">
+         <img src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" height="42" class="logo-warna" alt="<?= getenv('app.TitleName'); ?>" style="display: none;">
+         <img src="<?= base_url('public/assets/img/logo-putih.svg'); ?>" height="42" class="logo-putih" alt="<?= getenv('app.TitleName'); ?>">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
+         <i class="fa fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav">
