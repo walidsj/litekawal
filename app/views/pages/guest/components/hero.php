@@ -3,7 +3,7 @@
    </div>
    <div class="container-fluid banner">
       <div class="px-2 py-5 text-center text-white">
-         <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+         <img class="d-block mx-auto mb-4" src="<?= base_url('public/assets/img/logo-stand.svg'); ?>" alt="" height="92">
          <h2 class="title font-weight-bold">Layanan Aspirasi dan Pengaduan Staner</h2>
          <p class="lead">Sampaikan laporan Kamu langsung kepada instansi Elemen Kampus</p>
          <hr class="lead-hr">

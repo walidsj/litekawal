@@ -118,7 +118,7 @@ class laporan_model extends CI_Model
             [
                 'field' => 'tanggal_lapor',
                 'label' => 'Tanggal Kejadian',
-                'rules' => 'trim|numeric|max_length[16]'
+                'rules' => 'trim|max_length[16]'
             ],
             [
                 'field' => 'lokasi_lapor',

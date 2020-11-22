@@ -1,11 +1,13 @@
 
 body {
-   font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-family: 'Montserrat', Arial, sans-serif !important;
    font-size: 14px;
    line-height: 1.618;
    color: #333333;
    background-color: #ffffff;
 }
+
+/* Hero */
 
 #hero {
    background-color: #158cba;
@@ -55,4 +57,16 @@ nav {
 
 .select2-container--bootstrap4 .select2-selection {
    box-shadow: inset 0 2px 0 rgba(0, 0, 0, .075);
+}
+
+/* Navbar */
+
+.navbar-scroll-down {
+   transform: translateY(-150%);
+   transition: all 0.3s ease-in-out;
+}
+
+.navbar-scroll-up {
+   transform: translateY(0);
+   transition: all 0.3s ease-in-out;
 }

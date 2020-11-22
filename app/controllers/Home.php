@@ -24,11 +24,12 @@ class Home extends CI_Controller
 		$data['katlapList'] = $this->katlap_model->getAll();
 
 		# form validation
+		$laporan = $this->laporan_model;
 		$validation = $this->form_validation;
 		if ($url_string == '') {
-			$validation->set_rules($this->laporan_model->rules_aspirasi());
+			$validation->set_rules($laporan->rules_aspirasi());
 		} else {
-			$validation->set_rules($this->laporan_model->rules_pengaduan());
+			$validation->set_rules($laporan->rules_pengaduan());
 		}
 
 		# processing input data
