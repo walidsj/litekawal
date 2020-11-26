@@ -3,13 +3,6 @@
 
 <head>
    <?php $this->load->view('partials/headers'); ?>
-   <style>
-      #gradient-white {
-         background: -webkit-linear-gradient(#ffffff, #f7f8f9);
-         background: -o-linear-gradient(#ffffff, #f7f8f9);
-         background: linear-gradient(#ffffff, #f7f8f9);
-      }
-   </style>
 </head>
 
 <body>
@@ -53,8 +46,8 @@
                      </div>
                      <?php if ($this->input->get('tipe') == 'pengaduan') : ?>
                         <div class="form-group">
-                           <input type="text" class="form-control datepicker" placeholder="Pilih Tanggal Kejadian" required name="tanggal_lapor" value="<?= set_value('tanggal_lapor'); ?>">
-                           <?= form_error('tanggal_lapor'); ?>
+                           <input type="text" class="form-control datepicker" placeholder="Pilih Tanggal Kejadian" required name="kejadian_lapor" value="<?= set_value('kejadian_lapor'); ?>">
+                           <?= form_error('kejadian_lapor'); ?>
                         </div>
                         <div class=" form-group">
                            <input class="form-control" placeholder="Ketik Lokasi Kejadian" required name="lokasi_lapor" value="<?= set_value('lokasi_lapor'); ?>">
@@ -83,12 +76,12 @@
                         <div class="row">
                            <div class="col-md-8 mt-3">
                               <div class="custom-control custom-switch custom-control-inline">
-                                 <input type="checkbox" class="custom-control-input" id="anonim_lapor" v-model="swt.anonim">
-                                 <label class="custom-control-label" for="anonim_lapor">Anonim</label>
+                                 <input type="checkbox" class="custom-control-input" id="anonim_lapor" name="anonim_lapor">
+                                 <label class="custom-control-label tooltips" for="anonim_lapor" data-toggle="tooltip" data-placement="top" title="Kamu tidak perlu login jika fitur anonim diaktifkan.">Anonim</label>
                               </div>
                               <div class="custom-control custom-switch custom-control-inline">
-                                 <input type="checkbox" class="custom-control-input" id="rahasia_lapor" v-model="swt.rahasia">
-                                 <label class="custom-control-label" for="rahasia_lapor">Rahasia</label>
+                                 <input type="checkbox" class="custom-control-input" id="rahasia_lapor" name="rahasia_lapor">
+                                 <label class="custom-control-label tooltips" for="rahasia_lapor" data-toggle="tooltip" data-placement="top" title="Laporan tidak ditampilkan di portal jika fitur rahasia diaktifkan.">Rahasia</label>
                               </div>
                            </div>
                            <div class="col-md-4 text-right mt-3">

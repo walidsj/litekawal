@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark navbar-sticky bg-transparent fixed-top border-0">
    <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="<?= site_url(); ?>">
          <img src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" height="42" class="logo-warna" alt="<?= getenv('app.TitleName'); ?>" style="display: none;">
          <img src="<?= base_url('public/assets/img/logo-putih.svg'); ?>" height="42" class="logo-putih" alt="<?= getenv('app.TitleName'); ?>">
       </a>
@@ -10,16 +10,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav">
             <li class="nav-item active">
-               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+               <a class="nav-link" href="<?= site_url(); ?>">Beranda <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+               <a class="nav-link" href="<?= site_url('tentang-kami'); ?>">Tentang Kami</a>
             </li>
          </ul>
       </div>

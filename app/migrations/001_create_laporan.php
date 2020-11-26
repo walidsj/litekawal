@@ -27,6 +27,10 @@ class Migration_create_laporan extends CI_Migration
             'type' => 'VARCHAR',
             'constraint' => '16',
          ),
+         'kejadian_lapor' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '16',
+         ),
          'lokasi_lapor' => array(
             'type' => 'VARCHAR',
             'constraint' => '128',
@@ -64,7 +68,7 @@ class Migration_create_laporan extends CI_Migration
             'constraint' => '16',
          )
       ));
-      $this->dbforge->add_key('id_lapor');
+      $this->dbforge->add_key('id_lapor', TRUE);
       $this->dbforge->create_table('laporan');
    }
    public function down()

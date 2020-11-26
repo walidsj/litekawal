@@ -37,3 +37,4 @@ if ($('.navbar-sticky').length > 0) {
   }
 
 $('.numscroller').countUp();
+$('.tooltips').tooltip();

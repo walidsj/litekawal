@@ -28,7 +28,7 @@ class Migration_create_instansi extends CI_Migration
             'constraint' => '8',
          )
       ));
-      $this->dbforge->add_key('id_instansi');
+      $this->dbforge->add_key('id_instansi', TRUE);
       $this->dbforge->create_table('instansi');
    }
    public function down()

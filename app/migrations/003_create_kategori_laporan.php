@@ -16,7 +16,7 @@ class Migration_create_kategori_laporan extends CI_Migration
             'constraint' => '128',
          )
       ));
-      $this->dbforge->add_key('id_katlap');
+      $this->dbforge->add_key('id_katlap', TRUE);
       $this->dbforge->create_table('kategori_laporan');
    }
    public function down()

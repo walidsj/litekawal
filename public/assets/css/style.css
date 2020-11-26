@@ -7,6 +7,20 @@ body {
    background-color: #ffffff;
 }
 
+/* Background Gradient */
+#gradient-img {
+   position: relative;
+   background-color: #0779bf;
+   background-image: url('../img/hero.jpg');
+   background-size: cover;
+}
+
+#gradient-white {
+   background: -webkit-linear-gradient(#ffffff, #f7f8f9);
+   background: -o-linear-gradient(#ffffff, #f7f8f9);
+   background: linear-gradient(#ffffff, #f7f8f9);
+}
+
 /* Hero */
 #hero {
    background-color: #0779bf;
@@ -52,7 +66,6 @@ nav {
 }
 
 /* 3rd Party */
-
 .datepicker {
    padding: .375rem .75rem !important;
 }
@@ -88,7 +101,6 @@ nav {
 }
 
 /* Flow Widget */
-
 .bs-wizard .bs-wizard-dot {
    z-index: 2;
    border: 2px solid transparent;
@@ -258,11 +270,4 @@ nav {
 /* Counter */
 .numscroller {
    font-size: 4rem;
-}
-
-#gradient-img {
-      position: relative;
-      background-color: #0779bf;
-      background-image: url('../img/hero.jpg');
-      background-size: cover;
 }
