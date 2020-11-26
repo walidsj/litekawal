@@ -1,4 +1,12 @@
-$('select').each(function() {
+/* List of References 
+1. Form Script
+2. Navbar Script
+3. Init Script
+*/
+
+
+/* 1. Form Script */
+$('select').each(function () {
    $(this).select2({
       theme: 'bootstrap4',
       width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
@@ -12,6 +20,24 @@ $('.datepicker').datepicker({
    format: "dd/mm/yyyy"
 });
 
+$('form').submit(function () {
+	Swal.fire({
+		title: "Memuat",
+		text: "Mengirim data formulir",
+		showLoaderOnConfirm: true,
+		showConfirmButton: false,
+		showCloseButton: false,
+		showCancelButton: false,
+		allowOutsideClick: false,
+		allowEscapeKey: false,
+		onOpen: () => {
+			swal.showLoading();
+		},
+	});
+	return true;
+});
+
+/* 2. Navbar Script */
 if ($('.navbar-sticky').length > 0) {
     var last_scroll_top = 0;
     $(window).bind('scroll', function() {
@@ -34,7 +60,9 @@ if ($('.navbar-sticky').length > 0) {
       }
       last_scroll_top = scroll_top;
     });
-  }
-
+}
+  
+/* 3. Init Script */
 $('.numscroller').countUp();
 $('.tooltips').tooltip();
+

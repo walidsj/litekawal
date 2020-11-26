@@ -49,11 +49,11 @@ class Migration_create_laporan extends CI_Migration
          ),
          'anonim_lapor' => array(
             'type' => 'VARCHAR',
-            'constraint' => '1',
+            'constraint' => '2',
          ),
          'rahasia_lapor' => array(
             'type' => 'VARCHAR',
-            'constraint' => '1',
+            'constraint' => '2',
          ),
          'mahasiswa_lapor' => array(
             'type' => 'VARCHAR',

@@ -5,14 +5,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?= base_url('public/assets/js/jquery.countup.min.js'); ?>"></script>
 <script src="<?= base_url('public/assets/js/particle-init.js'); ?>"></script>
 <script src="<?= base_url('public/assets/js/main.js'); ?>"></script>
 <?php if ($this->session->flashdata('alert')) : ?>
    <script type="text/javascript">
-      swal("<?= $this->session->flashdata('alert')['title']; ?>",
-         "<?= $this->session->flashdata('alert')['desc']; ?> ",
-         "<?= $this->session->flashdata('alert')['type']; ?>");
+      Swal.fire({
+         title: '<?= $this->session->flashdata('alert')['title']; ?>!',
+         text: '<?= $this->session->flashdata('alert')['text']; ?>',
+         icon: '<?= $this->session->flashdata('alert')['type']; ?>',
+         showCancelButton: false,
+         allowOutsideClick: false,
+         allowEscapeKey: false
+      });
    </script>
 <?php endif; ?>

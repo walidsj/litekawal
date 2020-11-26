@@ -64,6 +64,6 @@
       </div>
    </div>
    <div class="col-12 mt-5 text-center">
-      <a href="<?= site_url('tentang'); ?>" class="btn btn-outline-primary">Pelajari Lebih Lanjut</a>
+      <a href="<?= site_url('tentang-kami'); ?>" class="btn btn-outline-primary">Pelajari Lebih Lanjut</a>
    </div>
 </div>

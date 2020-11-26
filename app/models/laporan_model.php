@@ -43,7 +43,12 @@ class laporan_model extends CI_Model
     {
         # init data
         $item = $this->session->{$this->table};
-        $inputPost = $this->input->post(null, true);
+        $inputPost = [
+            'namapelapor_lapor' => $this->input->post('namapelapor_lapor', true),
+            'mahasiswa_lapor' => $this->input->post('mahasiswa_lapor', true),
+            'email_lapor' => $this->input->post('email_lapor', true),
+            'kontak_lapor' => $this->input->post('kontak_lapor', true),
+        ];
         $itemLapor = array_merge($item, $inputPost);
 
         # insert data to database

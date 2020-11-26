@@ -26,11 +26,21 @@ class Home extends CI_Controller
 		user DISABLED it, laporan will show at announcement page.
 		*/
 
-
 		# declare data
 		$data['instansiList'] = $this->instansi_model->getAll();
 		$data['katlapList'] = $this->katlap_model->getAll();
 		$data['laporanList'] = $this->laporan_model->getAll();
+
+		# checking of session
+		if (!empty($this->session->laporan)) {
+			$alert = [
+				'title' => 'Lengkapi Data',
+				'text' => 'Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti',
+				'type' => 'info'
+			];
+			$this->session->set_flashdata('alert', $alert);
+			redirect('home/next-step');
+		}
 
 		# validation of link
 		$url_string = $this->input->get('tipe', true);
@@ -57,11 +67,11 @@ class Home extends CI_Controller
 				# echo alert and redirect
 				$alert = [
 					'title' => 'Lengkapi Data',
-					'desc' => 'Silakan lengkapi data agar kami dapat menghubungi ketika laporan telah ditindaklanjuti',
+					'text' => 'Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti',
 					'type' => 'info'
 				];
 				$this->session->set_flashdata('alert', $alert);
-				redirect('home/auth');
+				redirect('home/next-step');
 			} else {
 				# save to the database
 				$laporan->save_isAnonim();
@@ -70,13 +80,13 @@ class Home extends CI_Controller
 				if ($laporan->affected()) {
 					$alert = [
 						'title' => 'Berhasil Terkirim!',
-						'desc' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
+						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
 						'type' => 'success'
 					];
 				} else {
 					$alert = [
 						'title' => 'Gagal Terkirim!',
-						'desc' => 'Laporan Kamu gagal kami proses. Silakan coba lagi. (x001)',
+						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x001)',
 						'type' => 'error'
 					];
 				}
@@ -89,55 +99,69 @@ class Home extends CI_Controller
 		}
 	}
 
-	public function auth()
+	public function next_step()
 	{
+		# clear session to home
+		if ($this->input->get('go') == 'back') {
+			$alert = [
+				'title' => 'Laporan Dibatalkan',
+				'text' => 'Laporan Kamu berhasil dibatalkan. Isi laporan lagi jika ingin mengirim.',
+				'type' => 'success'
+			];
+			$this->session->unset_userdata('laporan');
+			$this->session->set_flashdata('alert', $alert);
+			redirect('/');
+		}
+
 		# checking of session
 		if (empty($this->session->laporan)) {
-			show_404();
+			redirect('/');
 		}
 
 		# define data property
 		$data['title'] = 'Lengkapi Data';
 
-
+		# form validation
 		$validation = $this->form_validation;
 		$laporan = $this->laporan_model;
 		$validation->set_rules($laporan->rules_lengkapi());
 
 		if ($validation->run() == true) {
 			# define for sending email
-			$emailUser = $this->input->post('email_lapor', true);
+			$emaildata = [
+				'to' => $this->input->post('email_lapor', true),
+				'subject' => 'Laporan Sedang Diproses',
+				'message' => 'Tracking laporan'
+			];
 
-			# config email
-			$this->load->library('email');
-			$config = array();
-			$config['protocol']       = getenv('mail.Protocol');
-			$config['smtp_host']      = getenv('mail.Host');
-			$config['smtp_user']      = getenv('mail.User');
-			$config['smtp_pass']      = getenv('mail.Password');
-			$config['smtp_port']      = getenv('mail.Port');
-			$config['mailtype']       = 'html';
-			$config['charset']        = 'utf-8';
-			$this->email->initialize($config);
-			$this->email->set_newline("\r\n");
-			$this->email->from(getenv('mail.User'), getenv('mail.Profile'));
-			$this->email->to($emailUser);
-			$this->email->subject('Laporan Sedang Diproses');
-			$this->email->message('Laporan kamu sedang diproses');
+			# sending email
+			$this->load->helper('sendmail_helper');
+			$sendMail = sendmail($emaildata);
+			if ($sendMail) {
+				# save data to database
+				$laporan->save();
 
-			# sending email function
-			if ($this->email->send()) {
-				$alert = [
-					'title' => 'Berhasil Terkirim!',
-					'desc' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
-					'type' => 'success'
-				];
+				# show alert if database affected
+				if ($laporan->affected()) {
+					$alert = [
+						'title' => 'Berhasil Terkirim!',
+						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
+						'type' => 'success'
+					];
+				} else {
+					$alert = [
+						'title' => 'Gagal Terkirim!',
+						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x003)',
+						'type' => 'error'
+					];
+				}
+				$this->session->unset_userdata('laporan');
 				$this->session->set_flashdata('alert', $alert);
 				redirect('/');
 			} else {
 				$alert = [
 					'title' => 'Gagal Terkirim!',
-					'desc' => 'Laporan Kamu gagal kami proses. Silakan coba lagi. (x002)',
+					'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x002)',
 					'type' => 'error'
 				];
 				$this->session->set_flashdata('alert', $alert);
@@ -145,12 +169,13 @@ class Home extends CI_Controller
 			}
 		} else {
 			# load view
-			$this->load->view('pages/guest/home_auth', $data);
+			$this->load->view('pages/guest/next-step', $data);
 		}
 	}
 }
 
 /* List of error code =>
-(x001) : Database IS NOT affected or error when trying to input data to database.
+(x001) : Database IS NOT affected when trying to input data. (IS ANONIM)
 (x002) : Email couldn't send due to error when sending email.
+(x003) : Database IS NOT affected when trying to input data. (ISNOT ANONIM)
 */
