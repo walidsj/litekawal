@@ -11,7 +11,7 @@
    <section id="gradient-white">
       <div class="container">
          <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
+            <div class="col-md-7">
                <div id="card-form" class="card p-3 border-0 shadow rounded-lg">
                   <?= form_open(current_url() . '?' . $_SERVER['QUERY_STRING']); ?>
                   <div class="card-body">

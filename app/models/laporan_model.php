@@ -16,8 +16,6 @@ class laporan_model extends CI_Model
         return $this->db->get_where($this->table, ["id_lapor" => $id])->row();
     }
 
-
-
     public function save_isAnonim($isAnonim = true)
     {
         # define parameter
@@ -39,6 +37,17 @@ class laporan_model extends CI_Model
         } else {
             return $this->session->set_userdata($this->table, $itemLapor);
         }
+    }
+
+    public function save()
+    {
+        # init data
+        $item = $this->session->{$this->table};
+        $inputPost = $this->input->post(null, true);
+        $itemLapor = array_merge($item, $inputPost);
+
+        # insert data to database
+        return $this->db->insert($this->table, $itemLapor);
     }
 
     public function affected()
@@ -123,6 +132,37 @@ class laporan_model extends CI_Model
                 'field' => 'lampiran_lapor',
                 'label' => 'Lampiran Berkas',
                 'rules' => 'trim|min_length[4]|max_length[128]'
+            ]
+        ];
+    }
+
+    public function rules_lengkapi()
+    {
+        return [
+            [
+                'field' => 'namapelapor_lapor',
+                'label' => 'Nama Lengkap',
+                'rules' => 'required|trim|min_length[4]|max_length[64]'
+            ],
+            [
+                'field' => 'mahasiswa_lapor',
+                'label' => 'NPM',
+                'rules' => 'required|numeric|trim|exact_length[10]'
+            ],
+            [
+                'field' => 'email_lapor',
+                'label' => 'Alamat Email Aktif',
+                'rules' => 'required|valid_email|trim|max_length[128]'
+            ],
+            [
+                'field' => 'kontak_lapor',
+                'label' => 'No. Handphone',
+                'rules' => 'required|numeric|trim|min_length[9]|max_length[16]'
+            ],
+            [
+                'field' => 'check_lapor',
+                'label' => 'Persetujuan',
+                'rules' => 'required'
             ]
         ];
     }

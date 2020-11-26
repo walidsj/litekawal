@@ -63,6 +63,10 @@ class Migration_create_laporan extends CI_Migration
             'type' => 'VARCHAR',
             'constraint' => '64',
          ),
+         'email_lapor' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '128',
+         ),
          'kontak_lapor' => array(
             'type' => 'VARCHAR',
             'constraint' => '16',
