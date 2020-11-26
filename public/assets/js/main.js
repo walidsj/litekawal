@@ -42,11 +42,11 @@ if ($('.navbar-sticky').length > 0) {
     var last_scroll_top = 0;
     $(window).bind('scroll', function() {
       if ($(window).scrollTop() > 70) {
-        $('.navbar-sticky').removeClass('bg-transparent').addClass('bg-white').removeClass('navbar-dark').addClass('navbar-light').addClass('shadow');
+        $('.navbar').removeClass('bg-transparent').addClass('bg-white').removeClass('navbar-dark').addClass('navbar-light').addClass('shadow');
         $('.logo-putih').css('display', 'none');
         $('.logo-warna').removeAttr("style");
       } else {
-        $('.navbar-sticky').addClass('bg-transparent').removeClass('bg-white').addClass('navbar-dark').removeClass('navbar-light').removeClass('shadow');
+        $('.navbar').addClass('bg-transparent').removeClass('bg-white').addClass('navbar-dark').removeClass('navbar-light').removeClass('shadow');
         $('.logo-putih').removeAttr("style");
         $('.logo-warna').css('display', 'none');
       }
@@ -58,6 +58,8 @@ if ($('.navbar-sticky').length > 0) {
       } else {
         $('.navbar-sticky').removeClass('navbar-scroll-up').addClass('navbar-scroll-down');
       }
+      $('#searchBar').collapse('hide');
+      $('#navbarNav').collapse('hide');
       last_scroll_top = scroll_top;
     });
 }

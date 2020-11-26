@@ -1,6 +1,6 @@
 <section id="footer">
    <div class="container">
-      <footer class="py-5 pt-md-5">
+      <footer class="py-5 pt-md-5 px-2">
          <div class="row">
             <div class="col-12 col-md">
                <a href="<?= site_url(); ?>">

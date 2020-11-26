@@ -20,6 +20,10 @@ body {
    background: linear-gradient(#ffffff, #f7f8f9);
 }
 
+.bg-gray{
+   background-color: #f7f8f9;
+}
+
 /* Hero */
 #hero {
    background-color: #0779bf;
@@ -78,6 +82,14 @@ nav {
 } */
 
 /* Navbar */
+.navbar {
+   transition: all 0.3s ease-in-out;
+}
+
+#searchBar {
+   transition: all 0.3s ease-in-out;
+}
+
 .navbar-scroll-down {
    transform: translateY(-150%);
    transition: all 0.3s ease-in-out;
