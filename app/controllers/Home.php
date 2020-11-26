@@ -8,9 +8,9 @@ class Home extends CI_Controller
 		parent::__construct();
 
 		# load model
-		$this->load->model('instansi_model');
-		$this->load->model('katlap_model');
-		$this->load->model('laporan_model');
+		$this->load->model('Instansi_model');
+		$this->load->model('Katlap_model');
+		$this->load->model('Laporan_model');
 	}
 
 	public function index()
@@ -27,9 +27,9 @@ class Home extends CI_Controller
 		*/
 
 		# declare data
-		$data['instansiList'] = $this->instansi_model->getAll();
-		$data['katlapList'] = $this->katlap_model->getAll();
-		$data['laporanList'] = $this->laporan_model->getAll();
+		$data['instansiList'] = $this->Instansi_model->getAll();
+		$data['katlapList'] = $this->Katlap_model->getAll();
+		$data['laporanList'] = $this->Laporan_model->getAll();
 
 		# checking of session
 		if (!empty($this->session->laporan)) {
@@ -49,7 +49,7 @@ class Home extends CI_Controller
 		}
 
 		# form validation
-		$laporan = $this->laporan_model;
+		$laporan = $this->Laporan_model;
 		$validation = $this->form_validation;
 		if ($url_string == '') {
 			$validation->set_rules($laporan->rules_aspirasi());
@@ -123,7 +123,7 @@ class Home extends CI_Controller
 
 		# form validation
 		$validation = $this->form_validation;
-		$laporan = $this->laporan_model;
+		$laporan = $this->Laporan_model;
 		$validation->set_rules($laporan->rules_lengkapi());
 
 		if ($validation->run() == true) {

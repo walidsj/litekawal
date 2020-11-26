@@ -3,7 +3,6 @@
 class Katlap_model extends CI_Model
 {
     private $table = "kategori_laporan";
-
     public $judul;
 
     public function rules()
