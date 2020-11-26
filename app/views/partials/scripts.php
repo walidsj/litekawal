@@ -12,7 +12,7 @@
 <?php if ($this->session->flashdata('alert')) : ?>
    <script type="text/javascript">
       Swal.fire({
-         title: '<?= $this->session->flashdata('alert')['title']; ?>!',
+         title: '<?= $this->session->flashdata('alert')['title']; ?>',
          text: '<?= $this->session->flashdata('alert')['text']; ?>',
          icon: '<?= $this->session->flashdata('alert')['type']; ?>',
          showCancelButton: false,

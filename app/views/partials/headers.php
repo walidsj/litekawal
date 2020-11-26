@@ -48,15 +48,11 @@
    <link rel="icon" href="<?= base_url('public/assets/img/favicon.png'); ?>" type="image/png">
 
    <!-- Google Fonts -->
-   <link rel="preconnect" href="https://fonts.gstatic.com">
-   <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Oswald:wght@600;700;800&display=swap" rel="stylesheet"> -->
    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,800" rel="stylesheet">
-
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-   <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-   <!-- <link rel="stylesheet" href="<?= base_url('public/assets/css/main.css'); ?>"> -->
+   <link rel="stylesheet" href="<?= base_url('public/assets/css/select2.css'); ?>">
    <link rel="stylesheet" href="<?= base_url('public/assets/css/bootstrap.css'); ?>">
    <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css'); ?>">

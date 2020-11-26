@@ -12,10 +12,10 @@
       <div class="container">
          <div class="row justify-content-center mb-4">
             <div class="col-md-7">
-               <div id="card-form" class="card p-3 border-0 shadow rounded-lg">
+               <div id="card-form" class="card p-3 border-0 shadow">
                   <?= form_open(current_url() . '?' . $_SERVER['QUERY_STRING']); ?>
                   <div class="card-body">
-                     <hr class="lead-hr-gray">
+                     <!-- <hr class="lead-hr-gray"> -->
                      <div class="form-group">
                         <label class="d-block font-weight-bold">Pilih Tipe Laporan</label>
                         <div class="input-group mb-3">

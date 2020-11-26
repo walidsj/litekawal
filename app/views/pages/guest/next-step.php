@@ -11,14 +11,14 @@
          <div class="row justify-content-center">
             <div class="col-md-5">
                <div class=" text-center mb-4">
-                  <a href="<?= site_url(); ?>">
+                  <a href="<?= current_url().'?go=back'; ?>">
                      <img height="64" src="<?= base_url('public/assets/img/logo-putih.svg'); ?>" alt="<?= getenv('app.TitleName'); ?>">
                   </a>
                </div>
-               <div class="card p-3 border-0 shadow rounded-lg">
+               <div class="card p-3 border-0 shadow">
                   <?= form_open(current_url()); ?>
                   <div class="card-body">
-                     <h3 class="card-title font-weight-bold">Lengkapi Data</h3>
+                     <h3 class="card-title font-weight-bold">Data Pelapor</h3>
                      <hr class="mb-4">
                      <div class="form-group">
                         <label for="namapelapor_lapor" class="d-block font-weight-bold">Nama Lengkap</label>
@@ -47,8 +47,16 @@
                         </div>
                         <?= form_error('check_lapor'); ?>
                      </div>
-                     <div class="form-group mb-0">
+                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Kirim Sekarang</button>
+                     </div>
+                     <div class="form-group text-center">
+                        <span class="font-weight-bold">
+                           Atau
+                        </span>
+                     </div>
+                      <div class="form-group">
+                        <a href="<?= site_url('auth/daftar');?>" class="btn btn-danger btn-block">Daftar Akun</a>
                      </div>
                   </div>
                   <?= form_close(); ?>
