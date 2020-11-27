@@ -37,7 +37,7 @@
                   <a href="#" class="nav-link px-3" data-toggle="collapse" data-target="#searchBar" aria-controls="searchBar" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-search"></i> Lacak Laporan</a>
                </li>
             </ul>
-            <a href="<?= site_url('auth/login'); ?>" class="btn btn-primary"><span class="px-2">Login</span></a>
+            <a href="<?= site_url('auth'); ?>" class="btn btn-primary"><span class="px-2">Login</span></a>
          </div>
       </div>
    </nav>
