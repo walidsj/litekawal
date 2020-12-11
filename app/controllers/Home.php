@@ -185,6 +185,7 @@ class Home extends CI_Controller
 	public function daftar_instansi()
 	{
 		# declare data
+		$data['katinsList'] = $this->Katins_model->getOn();
 		$data['instansiList'] = $this->Instansi_model->getAll();
 
 		# load view

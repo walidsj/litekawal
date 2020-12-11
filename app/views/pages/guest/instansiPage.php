@@ -32,10 +32,18 @@
          <div class="row justify-content-center mb-4">
             <div class="col-md-7">
                <div class="container pb-5">
-                  <h5 class="font-weight-bold border-bottom pb-2 mb-3">Tentang Kawal</h5>
-                  <p>
-                     Kawal merupakan akronim dari “Kanal Aspirasi Mahasiswa dan Layanan Informasi.” Sebuah media berbentuk website, yang akan menjadi pintu utama masuknya aspirasi dan aduan oleh mahasiswa terkait hal-hal yang terjadi di lingkungan kampus PKN STAN.
-                  </p>
+                  <?php $i = 1; ?>
+                  <?php foreach ($katinsList as $katins) : ?>
+                     <h5 class="font-weight-bold border-bottom pb-2 mb-3"><?= str_pad($i, 2, "0", STR_PAD_LEFT); ?>. <?= $katins->judul_katins; ?></h5>
+                     <ul>
+                        <?php foreach ($instansiList as $instansi) : ?>
+                           <?php if ($instansi->tipe_instansi == $katins->id_katins) : ?>
+                              <li><?= $instansi->nama_instansi; ?> (<?= $instansi->singkatan_instansi; ?>)</li>
+                           <?php endif; ?>
+                        <?php endforeach; ?>
+                     </ul>
+                     <?php $i++; ?>
+                  <?php endforeach; ?>
                </div>
             </div>
          </div>
