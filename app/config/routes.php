@@ -52,3 +52,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'Home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
+
+$route['tentang-kami'] = 'home/tentang-kami';
+$route['daftar-instansi'] = 'home/daftar-instansi';

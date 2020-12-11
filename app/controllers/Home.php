@@ -10,6 +10,7 @@ class Home extends CI_Controller
 		# load model
 		$this->load->model('Instansi_model');
 		$this->load->model('Katlap_model');
+		$this->load->model('Katins_model');
 		$this->load->model('Laporan_model');
 	}
 
@@ -30,6 +31,7 @@ class Home extends CI_Controller
 		$data['instansiList'] = $this->Instansi_model->getAll();
 		$data['katlapList'] = $this->Katlap_model->getAll();
 		$data['laporanList'] = $this->Laporan_model->getAll();
+		$data['katinsList'] = $this->Katins_model->getOn();
 
 		# checking of session
 		if (!empty($this->session->laporan)) {
@@ -171,6 +173,23 @@ class Home extends CI_Controller
 			# load view
 			$this->load->view('pages/guest/next-step', $data);
 		}
+	}
+
+	public function tentang_kami()
+	{
+		# load view
+		$data['title'] = 'Tentang Kami';
+		$this->load->view('pages/guest/about-us', $data);
+	}
+
+	public function daftar_instansi()
+	{
+		# declare data
+		$data['instansiList'] = $this->Instansi_model->getAll();
+
+		# load view
+		$data['title'] = 'Daftar Instansi';
+		$this->load->view('pages/guest/instansiPage', $data);
 	}
 }
 

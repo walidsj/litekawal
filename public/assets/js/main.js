@@ -43,10 +43,12 @@ if ($('.navbar-sticky').length > 0) {
     $(window).bind('scroll', function() {
       if ($(window).scrollTop() > 70) {
         $('.navbar').removeClass('bg-transparent').addClass('bg-white').removeClass('navbar-dark').addClass('navbar-light').addClass('shadow');
+        $('#btn-login').addClass('btn-primary').removeClass('btn-outline-secondary');
         $('.logo-putih').css('display', 'none');
         $('.logo-warna').removeAttr("style");
       } else {
         $('.navbar').addClass('bg-transparent').removeClass('bg-white').addClass('navbar-dark').removeClass('navbar-light').removeClass('shadow');
+        $('#btn-login').addClass('btn-outline-secondary').removeClass('btn-primary');
         $('.logo-putih').removeAttr("style");
         $('.logo-warna').css('display', 'none');
       }
