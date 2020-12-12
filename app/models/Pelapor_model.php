@@ -2,7 +2,7 @@
 
 class Pelapor_model extends CI_Model
 {
-    public function rules_login()
+    public function rulesLogin()
     {
         return [
             [
@@ -14,6 +14,17 @@ class Pelapor_model extends CI_Model
                 'field' => 'password_pelapor',
                 'label' => 'Kata Sandi',
                 'rules' => 'required|trim'
+            ]
+        ];
+    }
+
+    public function rulesResetPass()
+    {
+        return [
+            [
+                'field' => 'email_pelapor',
+                'label' => 'Alamat Email',
+                'rules' => 'required|valid_email|trim|max_length[128]'
             ]
         ];
     }

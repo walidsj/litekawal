@@ -29,7 +29,7 @@ class Auth extends CI_Controller
 
 		$validation = $this->form_validation;
 		$pelapor = $this->Pelapor_model;
-		$validation->set_rules($pelapor->rules_login());
+		$validation->set_rules($pelapor->rulesLogin());
 
 		if ($validation->run() == true) {
 			$email = $this->input->post('email_pelapor', true);
@@ -107,6 +107,7 @@ class Auth extends CI_Controller
 					$dataToken = [
 						'emailpelapor_tokpel' => $email,
 						'token_tokpel' => $dataEmail['token'],
+						'tipe_tokpel' => 'registration',
 						'created_tokpel' => date('Y-m-d H:i:s', now())
 					];
 
@@ -176,5 +177,69 @@ class Auth extends CI_Controller
 		}
 
 		redirect('auth');
+	}
+
+	public function forgot_password()
+	{
+		$data['title'] = 'Lupa Kata Sandi';
+
+		$validation = $this->form_validation;
+		$pelapor = $this->Pelapor_model;
+		$validation->set_rules($pelapor->rulesResetPass());
+		if ($validation->run() == true) {
+			$email = $this->input->post('email_pelapor', true);
+			$dataPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+
+			$dataToken = [
+				'emailpelapor_tokpel' => $email,
+				'token_tokpel' => base64_encode(random_bytes(32)),
+				'tipe_tokpel' => 'resetpassword',
+				'created_tokpel' => date('Y-m-d H:i:s', now())
+			];
+			$dataEmail = [
+				'nama' => $dataPelapor->nama_pelapor,
+				'email' => $dataPelapor->email_pelapor,
+				'token' => base64_encode(random_bytes(32))
+			];
+
+			if ($dataPelapor) {
+				$tokenExisting = $this->db->get_where('token_pelapor', ['emailpelapor_tokpel' => $email])->row();
+				if ($tokenExisting->tipe_tokpel == 'resetpassword') {
+					$this->db->delete('token_pelapor', ['emailpelapor_tokpel' => $email]);
+				} elseif ($tokenExisting->tipe_tokpel == 'registration') {
+					$this->session->set_flashdata('alert', 'error|Alamat email belum diverifikasi.');
+					redirect('auth');
+				}
+
+				$emaildata = [
+					'to' => $email,
+					'subject' => 'Reset Kata Sandi',
+					'message' => $this->load->view('email/resetPassEmail', $dataEmail, true)
+				];
+				$this->load->helper('sendmail_helper');
+				$sendMail = sendmail($emaildata);
+
+				if ($sendMail) {
+					$this->db->insert('token_pelapor', $dataToken);
+					$resultToken = $this->db->affected_rows();
+
+					if ($resultToken > 0) {
+						$this->session->set_flashdata('alert', 'success|Email reset berhasil dikirim. Cek inbox Kamu.');
+						redirect('auth');
+					} else {
+						$this->session->set_flashdata('alert', 'error|Token gagal digenerasi. Hubungi administrator.');
+						redirect('auth');
+					}
+				} else {
+					$this->session->set_flashdata('alert', 'error|Email gagal terkirim. Hubungi administrator.');
+					redirect('auth');
+				}
+			} else {
+				$this->session->set_flashdata('alert', 'error|Email tidak valid.');
+				redirect('auth');
+			}
+		} else {
+			$this->load->view('pages/auth/forgot-password', $data);
+		}
 	}
 }

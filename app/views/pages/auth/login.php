@@ -34,6 +34,9 @@
                      <div class="form-group mt-4">
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                      </div>
+                     <div class="form-group">
+                        <a href="<?= site_url(); ?>auth/forgot-password">Lupa kata sandi?</a>
+                     </div>
                      <div class="form-group text-center">
                         <span class="font-weight-bold">
                            Atau
