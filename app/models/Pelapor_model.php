@@ -29,6 +29,17 @@ class Pelapor_model extends CI_Model
         ];
     }
 
+    public function rulesNewPass()
+    {
+        return [
+            [
+                'field' => 'password_pelapor',
+                'label' => 'Kata Sandi',
+                'rules' => 'required|trim|min_length[5]'
+            ]
+        ];
+    }
+
     public function rules()
     {
         return [

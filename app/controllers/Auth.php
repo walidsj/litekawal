@@ -142,29 +142,25 @@ class Auth extends CI_Controller
 
 		$email = $this->input->get('e', true);
 		$token = $this->input->get('t', true);
-		if (!empty($email) && !empty($token)) {
-			$resultToken = $this->db->get_where('token_pelapor', ['emailpelapor_tokpel' => $email, 'token_tokpel' => $token]);
 
-			if ($resultToken) {
-				$this->db->where('email_pelapor', $email)->update('pelapor', ['status_pelapor' => 1]);
-				$resultPelapor = $this->db->affected_rows();
+		$resultToken = $this->db->get_where('token_pelapor', ['emailpelapor_tokpel' => $email, 'token_tokpel' => $token])->row();
 
-				if ($resultPelapor > 0) {
-					$this->db->delete('token_pelapor', ['emailpelapor_tokpel' => $email]);
+		if ($resultToken) {
+			$this->db->where('email_pelapor', $email)->update('pelapor', ['status_pelapor' => 1]);
+			$resultPelapor = $this->db->affected_rows();
 
-					$this->session->set_flashdata('alert', 'success|Email akun Kamu berhasil diverifikasi. Silakan login.');
-					redirect('auth');
-				} else {
-					$errCode = '(x001)';
-				}
+			if ($resultPelapor > 0) {
+				$this->db->delete('token_pelapor', ['emailpelapor_tokpel' => $email]);
+
+				$this->session->set_flashdata('alert', 'success|Email akun Kamu berhasil diverifikasi. Silakan login.');
+				redirect('auth');
 			} else {
-				$errCode = '(x000)';
+				$this->session->set_flashdata('alert', 'error|Gagal');
+				redirect('auth');
 			}
-
-			$this->session->set_flashdata('alert', 'error|Token tidak valid! ' . $errCode);
-			redirect(current_url());
 		} else {
-			show_404();
+			$this->session->set_flashdata('alert', 'error|Token dan email tidak valid!');
+			redirect('auth');
 		}
 	}
 
@@ -199,7 +195,7 @@ class Auth extends CI_Controller
 			$dataEmail = [
 				'nama' => $dataPelapor->nama_pelapor,
 				'email' => $dataPelapor->email_pelapor,
-				'token' => base64_encode(random_bytes(32))
+				'token' => $dataToken['token_tokpel']
 			];
 
 			if ($dataPelapor) {
@@ -240,6 +236,45 @@ class Auth extends CI_Controller
 			}
 		} else {
 			$this->load->view('pages/auth/forgot-password', $data);
+		}
+	}
+
+	public function reset_password()
+	{
+		if ($this->session->userPelapor) {
+			redirect('dashboard');
+		}
+
+		$data['title'] = 'Lupa Kata Sandi';
+
+		$email = $this->input->get('e', true);
+		$token = $this->input->get('t', true);
+
+		$resultToken = $this->db->get_where('token_pelapor', ['emailpelapor_tokpel' => $email, 'token_tokpel' => $token])->row();
+
+		if ($resultToken) {
+			$validation = $this->form_validation;
+			$pelapor = $this->Pelapor_model;
+			$validation->set_rules($pelapor->rulesNewPass());
+			if ($validation->run() == true) {
+				$password = $this->input->post('password_pelapor', true);
+				$newPassword = password_hash($password, PASSWORD_DEFAULT);
+
+				$this->db->where('email_pelapor', $email)->update('pelapor', ['password_pelapor' => $newPassword]);
+				$resultPelapor = $this->db->affected_rows();
+
+				if ($resultPelapor > 0) {
+					$this->db->delete('token_pelapor', ['emailpelapor_tokpel' => $email]);
+
+					$this->session->set_flashdata('alert', 'success|Kata sandi berhasil diganti. Silakan login.');
+					redirect('auth');
+				}
+			} else {
+				$this->load->view('pages/auth/reset-password', $data);
+			}
+		} else {
+			$this->session->set_flashdata('alert', 'error|Token dan email tidak valid.');
+			redirect('auth/forgot-password');
 		}
 	}
 }

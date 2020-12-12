@@ -382,7 +382,7 @@
                                              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                                 <tbody>
                                                    <tr>
-                                                      <td> <a href="<?= site_url(); ?>auth/reset-password?e=<?= urlencode($email); ?>&t=<?= urlencode($token); ?>" target="_blank">Verifikasi Email</a> </td>
+                                                      <td> <a href="<?= site_url(); ?>auth/reset-password?e=<?= urlencode($email); ?>&t=<?= urlencode($token); ?>" target="_blank">Reset Kata Sandi</a> </td>
                                                    </tr>
                                                 </tbody>
                                              </table>
