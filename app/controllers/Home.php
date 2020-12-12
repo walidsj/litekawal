@@ -31,12 +31,24 @@ class Home extends CI_Controller
 		}
 
 		if ($validation->run() == true) {
-			$isAnonim = $this->input->post('anonim_lapor');
-			if (!$isAnonim) {
-				$laporan->saveBefore();
-				$this->session->set_flashdata('alert', 'info|Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti');
-				redirect('home/next-step');
-			}
+			$isAnonim = $this->input->post('anonim_lapor', true);
+			$isRahasia = $this->input->post('rahasia_lapor', true);
+			$url_string = $this->input->get('tipe', true);
+
+			# insert parameter to data container
+			$item = [
+				'tipe_lapor' => ($url_string == '') ? 1 : 2,
+				'tanggal_lapor' => date('Y-m-d H:i:s', now()),
+				'anonim_lapor' => (!empty($isAnonim)) ? $isAnonim : '',
+				'rahasia_lapor' => (!empty($isRahasia)) ? $isRahasia : '',
+				'status_lapor' => 1
+			];
+			$inputPost = $this->input->post(null, true);
+			$itemLapor = array_merge($item, $inputPost);
+			$this->session->set_userdata('laporan', $itemLapor);
+
+			$this->session->set_flashdata('alert', 'info|Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti');
+			redirect('home/next-step');
 		} else {
 			$this->load->view('pages/guest/home', $data);
 		}
