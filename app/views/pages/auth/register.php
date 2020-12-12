@@ -22,39 +22,47 @@
                      <span class="card-description">Silakan isi data Kamu</span>
                      <hr class="mb-4">
                      <div class="form-group">
-                        <label for="email_user" class="d-block font-weight-bold">Alamat Email</label>
-                        <input id="email_user" type="email" class="form-control" placeholder="Alamat Email" required name="email_user" value="<?= set_value('email_user'); ?>">
-                        <?= form_error('email_user'); ?>
+                        <label for="nama_pelapor" class="d-block font-weight-bold">Nama Lengkap <span class="text-danger">*</span></label>
+                        <input id="nama_pelapor" type="text" class="form-control" placeholder="Nama Lengkap" required name="nama_pelapor" value="<?= set_value('nama_pelapor'); ?>">
+                        <?= form_error('nama_pelapor'); ?>
                      </div>
                      <div class="form-group">
-                        <label for="password_user" class="d-block font-weight-bold">Kata Sandi</label>
-                        <input id="password_user" type="password" class="form-control" placeholder="Kata Sandi" required name="password_user" value="<?= set_value('password_user'); ?>">
-                        <?= form_error('password_user'); ?>
+                        <label for="npm_pelapor" class="d-block font-weight-bold">NPM <span class="text-danger">*</span></label>
+                        <input id="npm_pelapor" type="number" class="form-control" placeholder="NPM" required name="npm_pelapor" value="<?= set_value('npm_pelapor'); ?>">
+                        <?= form_error('npm_pelapor'); ?>
                      </div>
                      <div class="form-group">
-                        <label for="nama_user" class="d-block font-weight-bold">Nama Lengkap</label>
-                        <input id="nama_user" type="text" class="form-control" placeholder="Nama Lengkap" required name="nama_user" value="<?= set_value('nama_user'); ?>">
-                        <?= form_error('nama_user'); ?>
+                        <label for="email_pelapor" class="d-block font-weight-bold">Alamat Email <span class="text-danger">*</span></label>
+                        <input id="email_pelapor" type="email" class="form-control" placeholder="Alamat Email" required name="email_pelapor" value="<?= set_value('email_pelapor'); ?>">
+                        <?= form_error('email_pelapor'); ?>
                      </div>
                      <div class="form-group">
-                        <label for="mahasiswa_user" class="d-block font-weight-bold">NPM</label>
-                        <input id="mahasiswa_user" type="number" class="form-control" placeholder="NPM" required name="mahasiswa_user" value="<?= set_value('mahasiswa_user'); ?>">
-                        <?= form_error('mahasiswa_user'); ?>
+                        <label for="password_pelapor" class="d-block font-weight-bold">Kata Sandi <span class="text-danger">*</span></label>
+                        <input id="password_pelapor" type="password" class="form-control" placeholder="Kata Sandi" required name="password_pelapor" value="<?= set_value('password_pelapor'); ?>">
+                        <?= form_error('password_pelapor'); ?>
                      </div>
                      <div class="form-group">
-                        <label for="kontak_user" class="d-block font-weight-bold">No. <i>Handphone</i></label>
-                        <input id="kontak_user" type="number" class="form-control" placeholder="081234567890" required name="kontak_user" value="<?= set_value('kontak_user'); ?>">
-                        <?= form_error('kontak_user'); ?>
+                        <label for="kontak_pelapor" class="d-block font-weight-bold">No. <i>Handphone</i> <span class="text-danger">*</span></label>
+                        <input id="kontak_pelapor" type="number" class="form-control" placeholder="No. Handphone" required name="kontak_pelapor" value="<?= set_value('kontak_pelapor'); ?>">
+                        <?= form_error('kontak_pelapor'); ?>
                      </div>
                      <div class="form-group mt-4">
                         <div class="custom-control custom-switch custom-control-inline">
-                           <input type="checkbox" class="custom-control-input" id="check_user" name="check_user">
-                           <label class="custom-control-label tooltips" for="check_user">Saya telah membaca dan menyetujui Syarat dan Ketentuan Layanan</label>
+                           <input type="checkbox" class="custom-control-input" id="check_pelapor" name="check_pelapor">
+                           <label class="custom-control-label tooltips" for="check_pelapor">Saya telah membaca dan menyetujui Syarat dan Ketentuan Layanan</label>
                         </div>
-                        <?= form_error('check_user'); ?>
+                        <?= form_error('check_pelapor'); ?>
                      </div>
                      <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+                     </div>
+                     <div class="form-group text-center">
+                        <span class="font-weight-bold">
+                           Atau
+                        </span>
+                     </div>
+                     <div class="form-group">
+                        <a href="<?= site_url('auth'); ?>" class="btn btn-outline-danger btn-block">Login</a>
                      </div>
                   </div>
                   <?= form_close(); ?>

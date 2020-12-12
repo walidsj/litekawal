@@ -7,123 +7,174 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 
-		# load model
 		$this->load->model('Instansi_model');
 		$this->load->model('Katlap_model');
 		$this->load->model('Laporan_model');
+		$this->load->model('Pelapor_model');
 	}
 
 	public function index()
 	{
-		# define data property
+		if ($this->session->userPelapor) {
+			redirect('dashboard');
+		}
+
+		if ($this->input->get('go') == 'back') {
+			$this->session->unset_userdata('laporan');
+			$this->session->set_flashdata('alert', 'info|Silakan login dan isi laporan lagi jika ingin mengirim.');
+			redirect(current_url());
+		}
+
 		$data['title'] = 'Login Akun';
 
-		# form validation
 		$validation = $this->form_validation;
-		$laporan = $this->Laporan_model;
-		$validation->set_rules($laporan->rules_lengkapi());
+		$pelapor = $this->Pelapor_model;
+		$validation->set_rules($pelapor->rules_login());
 
 		if ($validation->run() == true) {
-			# define for sending email
-			$emaildata = [
-				'to' => $this->input->post('email_lapor', true),
-				'subject' => 'Laporan Sedang Diproses',
-				'message' => 'Tracking laporan'
-			];
+			$email = $this->input->post('email_pelapor', true);
+			$password = $this->input->post('password_pelapor', true);
 
-			# sending email
-			$this->load->helper('sendmail_helper');
-			$sendMail = sendmail($emaildata);
-			if ($sendMail) {
-				# save data to database
-				$laporan->save();
-
-				# show alert if database affected
-				if ($laporan->affected()) {
-					$alert = [
-						'title' => 'Berhasil Terkirim!',
-						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
-						'type' => 'success'
+			$dataLogin = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+			if ($dataLogin) {
+				if (password_verify($password, $dataLogin->password_pelapor) == true) {
+					$userPelapor = [
+						'id_pelapor' => $dataLogin->id_pelapor,
+						'email_pelapor' => $dataLogin->email_pelapor
 					];
+					$this->session->set_userdata('userPelapor', $userPelapor);
+					redirect('dashboard');
 				} else {
-					$alert = [
-						'title' => 'Gagal Terkirim!',
-						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x003)',
-						'type' => 'error'
-					];
+					$this->session->set_flashdata('sessionEmail', $email);
+					$this->session->set_flashdata('alert', 'error|Login gagal. Kata sandi salah!');
+					redirect(current_url());
 				}
-				$this->session->unset_userdata('laporan');
-				$this->session->set_flashdata('alert', $alert);
-				redirect('/');
 			} else {
-				$alert = [
-					'title' => 'Gagal Terkirim!',
-					'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x002)',
-					'type' => 'error'
-				];
-				$this->session->set_flashdata('alert', $alert);
+				$this->session->set_flashdata('alert', 'error|Alamat email tidak terdaftar!');
 				redirect(current_url());
 			}
 		} else {
-			# load view
 			$this->load->view('pages/auth/login', $data);
 		}
 	}
 
 	public function daftar()
 	{
-		# define data property
+		if ($this->session->userPelapor) {
+			redirect('dashboard');
+		}
+
 		$data['title'] = 'Daftar Akun';
 
-		# form validation
 		$validation = $this->form_validation;
-		$laporan = $this->Laporan_model;
-		$validation->set_rules($laporan->rules_lengkapi());
+		$pelapor = $this->Pelapor_model;
+		$validation->set_rules($pelapor->rules());
 
 		if ($validation->run() == true) {
-			# define for sending email
+			$email = $this->input->post('email_pelapor', true);
+			$nama = $this->input->post('nama_pelapor', true);
+
+			$dataEmail = [
+				'nama' => $nama,
+				'email' => $email,
+				'token' => base64_encode(random_bytes(32))
+			];
 			$emaildata = [
-				'to' => $this->input->post('email_lapor', true),
-				'subject' => 'Laporan Sedang Diproses',
-				'message' => 'Tracking laporan'
+				'to' => $email,
+				'subject' => 'Verifikasi Akun Kawal',
+				'message' => $this->load->view('email/verifEmail', $dataEmail, true)
 			];
 
-			# sending email
 			$this->load->helper('sendmail_helper');
 			$sendMail = sendmail($emaildata);
-			if ($sendMail) {
-				# save data to database
-				$laporan->save();
 
-				# show alert if database affected
-				if ($laporan->affected()) {
-					$alert = [
-						'title' => 'Berhasil Terkirim!',
-						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
-						'type' => 'success'
-					];
-				} else {
-					$alert = [
-						'title' => 'Gagal Terkirim!',
-						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x003)',
-						'type' => 'error'
-					];
-				}
-				$this->session->unset_userdata('laporan');
-				$this->session->set_flashdata('alert', $alert);
-				redirect('/');
-			} else {
-				$alert = [
-					'title' => 'Gagal Terkirim!',
-					'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x002)',
-					'type' => 'error'
+			if ($sendMail) {
+				$dataPelapor = [
+					'nama_pelapor' => $nama,
+					'email_pelapor' => $email,
+					'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
+					'npm_pelapor' => $this->input->post('npm_pelapor', true),
+					'kontak_pelapor' => $this->input->post('kontak_pelapor'),
+					'created_pelapor' => date('Y-m-d H:i:s', now()),
+					'updated_pelapor' => date('Y-m-d H:i:s', now()),
+					'status_pelapor' => 0
 				];
-				$this->session->set_flashdata('alert', $alert);
-				redirect(current_url());
+
+				$this->db->insert('pelapor', $dataPelapor);
+				$resultPelapor = $this->db->affected_rows();
+
+				if ($resultPelapor > 0) {
+					$dataToken = [
+						'emailpelapor_tokpel' => $email,
+						'token_tokpel' => $dataEmail['token'],
+						'created_tokpel' => date('Y-m-d H:i:s', now())
+					];
+
+					$this->db->insert('token_pelapor', $dataToken);
+					$resultToken = $this->db->affected_rows();
+
+					if ($resultToken > 0) {
+						$this->session->set_flashdata('alert', 'success|Pendaftaran berhasil. Cek inbox Kamu untuk verifikasi email.');
+						redirect('auth');
+					} else {
+						$errCode = '(x003)';
+					}
+				} else {
+					$errCode = '(x002)';
+				}
+			} else {
+				$errCode = '(x004)';
 			}
+
+			$this->session->set_flashdata('alert', 'error|Pendaftaran gagal. Coba lagi atau hubungi administrator. ' . $errCode);
+			redirect(current_url());
 		} else {
-			# load view
 			$this->load->view('pages/auth/register', $data);
 		}
+	}
+
+	public function email_verify()
+	{
+		if ($this->session->userPelapor) {
+			redirect('dashboard');
+		}
+
+		$email = $this->input->get('e', true);
+		$token = $this->input->get('t', true);
+		if (!empty($email) && !empty($token)) {
+			$resultToken = $this->db->get_where('token_pelapor', ['emailpelapor_tokpel' => $email, 'token_tokpel' => $token]);
+
+			if ($resultToken) {
+				$this->db->where('email_pelapor', $email)->update('pelapor', ['status_pelapor' => 1]);
+				$resultPelapor = $this->db->affected_rows();
+
+				if ($resultPelapor > 0) {
+					$this->db->delete('token_pelapor', ['emailpelapor_tokpel' => $email]);
+
+					$this->session->set_flashdata('alert', 'success|Email akun Kamu berhasil diverifikasi. Silakan login.');
+					redirect('auth');
+				} else {
+					$errCode = '(x001)';
+				}
+			} else {
+				$errCode = '(x000)';
+			}
+
+			$this->session->set_flashdata('alert', 'error|Token tidak valid! ' . $errCode);
+			redirect(current_url());
+		} else {
+			show_404();
+		}
+	}
+
+	public function logout()
+	{
+		$userPelapor = $this->session->userPelapor;
+		if (!empty($userPelapor)) {
+			$this->session->unset_userdata('userPelapor');
+			$this->session->set_flashdata('alert', 'success|Logout berhasil!');
+		}
+
+		redirect('auth');
 	}
 }

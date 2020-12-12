@@ -3,54 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-
-		# load model
-		$this->load->model('Instansi_model');
-		$this->load->model('Katlap_model');
-		$this->load->model('Katins_model');
-		$this->load->model('Laporan_model');
-	}
-
 	public function index()
 	{
-		/* Logical Process => 
-		There are two major types of Laporan, which are Aspirasi and Pengaduan.
-		Aspirasi handles laporan without lokasi_lapor. Pengaduan handles laporan with
-		lokasi lapor.
-		After that, there are two kind of parameters. First is ANONIM. If user ENABLED it,
-		data directly stored to the database without any further, If user DISABLED it,
-		they have to login first or input they identity.
-		Second is RAHASIA. If user ENABLED it, laporan won't show at announcement page. If
-		user DISABLED it, laporan will show at announcement page.
-		*/
+		$this->load->model('Laporan_model');
 
-		# declare data
-		$data['instansiList'] = $this->Instansi_model->getAll();
-		$data['katlapList'] = $this->Katlap_model->getAll();
-		$data['laporanList'] = $this->Laporan_model->getAll();
-		$data['katinsList'] = $this->Katins_model->getOn();
+		$data['instansiList'] = $this->db->order_by('nama_instansi', 'ASC')->get_where('instansi', ['status_instansi' => 1])->result();
+		$data['katlapList'] = $this->db->order_by('judul_katlap', 'ASC')->get_where('kategori_laporan', ['status_katlap' => 1])->result();
+		$data['katinsList'] = $this->db->order_by('judul_katins', 'ASC')->get_where('kategori_instansi', ['status_katins' => 1])->result();
+		$data['laporanList'] = $this->db->get('laporan')->result();
 
-		# checking of session
 		if (!empty($this->session->laporan)) {
-			$alert = [
-				'title' => 'Lengkapi Data',
-				'text' => 'Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti',
-				'type' => 'info'
-			];
-			$this->session->set_flashdata('alert', $alert);
+			$this->session->set_flashdata('alert', 'info|Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti');
 			redirect('home/next-step');
 		}
 
-		# validation of link
 		$url_string = $this->input->get('tipe', true);
 		if ($url_string != '' && $url_string != 'pengaduan') {
 			show_404();
 		}
 
-		# form validation
 		$laporan = $this->Laporan_model;
 		$validation = $this->form_validation;
 		if ($url_string == '') {
@@ -59,137 +30,106 @@ class Home extends CI_Controller
 			$validation->set_rules($laporan->rules_pengaduan());
 		}
 
-		# processing input data
 		if ($validation->run() == true) {
 			$isAnonim = $this->input->post('anonim_lapor');
 			if (!$isAnonim) {
-				# save to the session
-				$laporan->save_isAnonim(false);
-
-				# echo alert and redirect
-				$alert = [
-					'title' => 'Lengkapi Data',
-					'text' => 'Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti',
-					'type' => 'info'
-				];
-				$this->session->set_flashdata('alert', $alert);
+				$laporan->saveBefore();
+				$this->session->set_flashdata('alert', 'info|Silakan lengkapi data agar kami dapat menghubungi Kamu ketika laporan telah ditindaklanjuti');
 				redirect('home/next-step');
-			} else {
-				# save to the database
-				$laporan->save_isAnonim();
-
-				# show alert if database affected
-				if ($laporan->affected()) {
-					$alert = [
-						'title' => 'Berhasil Terkirim!',
-						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
-						'type' => 'success'
-					];
-				} else {
-					$alert = [
-						'title' => 'Gagal Terkirim!',
-						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x001)',
-						'type' => 'error'
-					];
-				}
-				$this->session->set_flashdata('alert', $alert);
-				redirect(current_url());
 			}
 		} else {
-			# load view
 			$this->load->view('pages/guest/home', $data);
 		}
 	}
 
 	public function next_step()
 	{
-		# clear session to home
+		$this->load->model('Pelapor_model');
+
+		$data['title'] = 'Lengkapi Data';
+
 		if ($this->input->get('go') == 'back') {
-			$alert = [
-				'title' => 'Laporan Dibatalkan',
-				'text' => 'Laporan Kamu berhasil dibatalkan. Isi laporan lagi jika ingin mengirim.',
-				'type' => 'success'
-			];
 			$this->session->unset_userdata('laporan');
-			$this->session->set_flashdata('alert', $alert);
+			$this->session->set_flashdata('alert', 'success|Laporan Kamu berhasil dibatalkan. Isi laporan lagi jika ingin mengirim.');
 			redirect('/');
 		}
 
-		# checking of session
 		if (empty($this->session->laporan)) {
 			redirect('/');
 		}
 
-		# define data property
-		$data['title'] = 'Lengkapi Data';
-
-		# form validation
 		$validation = $this->form_validation;
-		$laporan = $this->Laporan_model;
-		$validation->set_rules($laporan->rules_lengkapi());
+		$pelapor = $this->Pelapor_model;
+		$validation->set_rules($pelapor->rules());
 
 		if ($validation->run() == true) {
-			# define for sending email
+			$email = $this->input->post('email_pelapor', true);
 			$emaildata = [
-				'to' => $this->input->post('email_lapor', true),
+				'to' => $email,
 				'subject' => 'Laporan Sedang Diproses',
 				'message' => 'Tracking laporan'
 			];
 
-			# sending email
 			$this->load->helper('sendmail_helper');
 			$sendMail = sendmail($emaildata);
-			if ($sendMail) {
-				# save data to database
-				$laporan->save();
 
-				# show alert if database affected
-				if ($laporan->affected()) {
-					$alert = [
-						'title' => 'Berhasil Terkirim!',
-						'text' => 'Laporan Kamu akan kami proses maksimal 3x24 jam.',
-						'type' => 'success'
-					];
-				} else {
-					$alert = [
-						'title' => 'Gagal Terkirim!',
-						'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x003)',
-						'type' => 'error'
-					];
-				}
-				$this->session->unset_userdata('laporan');
-				$this->session->set_flashdata('alert', $alert);
-				redirect('/');
-			} else {
-				$alert = [
-					'title' => 'Gagal Terkirim!',
-					'text' => 'Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. (x002)',
-					'type' => 'error'
+			if ($sendMail) {
+				$dataPelapor = [
+					'nama_pelapor' => $this->input->post('nama_pelapor', true),
+					'email_pelapor' => $email,
+					'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
+					'npm_pelapor' => $this->input->post('npm_pelapor', true),
+					'kontak_pelapor' => $this->input->post('kontak_pelapor'),
+					'created_pelapor' => date('Y-m-d H:i:s', now()),
+					'updated_pelapor' => date('Y-m-d H:i:s', now()),
+					'status_pelapor' => 0
 				];
-				$this->session->set_flashdata('alert', $alert);
-				redirect(current_url());
+
+				$this->db->insert('pelapor', $dataPelapor);
+				$resultPelapor = $this->db->affected_rows();
+
+				if ($resultPelapor > 0) {
+					$getPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+					$dataLaporan = array_merge(['idpelapor_lapor' => $getPelapor->id_pelapor], $this->session->laporan);
+
+					$this->db->insert('laporan', $dataLaporan);
+					$laporanResult = $this->db->affected_rows();
+
+					if ($laporanResult > 0) {
+						$this->session->unset_userdata('laporan');
+						$this->session->set_flashdata('alert', 'success|Laporan terkirim dan akun Kamu telah dibuat. Login dengan akun Kamu jika kirim laporan lagi.');
+						redirect('/');
+					} else {
+						$errCode = '(x004)';
+					}
+				} else {
+					$errCode = '(x003)';
+				}
+			} else {
+				$errCode = '(x002)';
 			}
+
+			$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. ' . $errCode);
+			redirect(current_url());
 		} else {
-			# load view
 			$this->load->view('pages/guest/next-step', $data);
 		}
 	}
 
 	public function tentang_kami()
 	{
-		# load view
 		$data['title'] = 'Tentang Kami';
+
 		$this->load->view('pages/guest/about-us', $data);
 	}
 
 	public function daftar_instansi()
 	{
-		# declare data
-		$data['katinsList'] = $this->Katins_model->getOn();
-		$data['instansiList'] = $this->Instansi_model->getAll();
-
-		# load view
 		$data['title'] = 'Daftar Instansi';
+
+		$data['instansiList'] = $this->db->order_by('nama_instansi', 'ASC')->get_where('instansi', ['status_instansi' => 1])->result();
+		$data['katinsList'] = $this->db->order_by('judul_katins', 'ASC')->get_where('kategori_instansi', ['status_katins' => 1])->result();
+
 		$this->load->view('pages/guest/instansiPage', $data);
 	}
 }
@@ -198,4 +138,5 @@ class Home extends CI_Controller
 (x001) : Database IS NOT affected when trying to input data. (IS ANONIM)
 (x002) : Email couldn't send due to error when sending email.
 (x003) : Database IS NOT affected when trying to input data. (ISNOT ANONIM)
+(x004) : Pelapor tidak masuk database
 */

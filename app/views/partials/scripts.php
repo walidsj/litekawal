@@ -9,15 +9,17 @@
 <script src="<?= base_url('public/assets/js/jquery.countup.min.js'); ?>"></script>
 <script src="<?= base_url('public/assets/js/particle-init.js'); ?>"></script>
 <script src="<?= base_url('public/assets/js/main.js'); ?>"></script>
-<?php if ($this->session->flashdata('alert')) : ?>
+<?php if ($this->session->flashdata('alert')) {
+   $text = $this->session->flashdata('alert');
+   $hasil = explode('|', $text);
+?>
    <script type="text/javascript">
       Swal.fire({
-         title: '<?= $this->session->flashdata('alert')['title']; ?>',
-         text: '<?= $this->session->flashdata('alert')['text']; ?>',
-         icon: '<?= $this->session->flashdata('alert')['type']; ?>',
+         text: '<?= $hasil[1]; ?>',
+         icon: '<?= $hasil[0]; ?>',
          showCancelButton: false,
          allowOutsideClick: false,
          allowEscapeKey: false
       });
    </script>
-<?php endif; ?>
+<?php } ?>
