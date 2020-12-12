@@ -37,16 +37,21 @@ class Auth extends CI_Controller
 
 			$dataLogin = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
 			if ($dataLogin) {
-				if (password_verify($password, $dataLogin->password_pelapor) == true) {
-					$userPelapor = [
-						'id_pelapor' => $dataLogin->id_pelapor,
-						'email_pelapor' => $dataLogin->email_pelapor
-					];
-					$this->session->set_userdata('userPelapor', $userPelapor);
-					redirect('dashboard');
+				if ($dataLogin->status_pelapor > 0) {
+					if (password_verify($password, $dataLogin->password_pelapor) == true) {
+						$userPelapor = [
+							'id_pelapor' => $dataLogin->id_pelapor,
+							'email_pelapor' => $dataLogin->email_pelapor
+						];
+						$this->session->set_userdata('userPelapor', $userPelapor);
+						redirect('dashboard');
+					} else {
+						$this->session->set_flashdata('sessionEmail', $email);
+						$this->session->set_flashdata('alert', 'error|Login gagal. Kata sandi salah!');
+						redirect(current_url());
+					}
 				} else {
-					$this->session->set_flashdata('sessionEmail', $email);
-					$this->session->set_flashdata('alert', 'error|Login gagal. Kata sandi salah!');
+					$this->session->set_flashdata('alert', 'error|Akun belum diverifikasi email!');
 					redirect(current_url());
 				}
 			} else {
