@@ -34,7 +34,7 @@
                 </div>
               </div>
               <div class="form-group mb-0">
-                <label for="tipe_lapor" class="d-block font-weight-bold">Detail Laporan</label>
+                <label for="tipe_lapor" class="d-block font-weight-bold">Detail Laporan <span class="text-danger">*</span></label>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Ketik Judul Laporan Kamu *" required name="judul_lapor" value="<?= set_value('judul_lapor'); ?>">
