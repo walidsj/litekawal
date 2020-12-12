@@ -4,14 +4,14 @@
       <div class="row justify-content-center">
          <div class="col-md-6">
             <div class="p-4">
-               <form action="<?= site_url(); ?>home/tracking" role="search">
-                  <div class="input-group">
-                     <input type="text" class="form-control" placeholder="Cari Tracking ID atau Kata Kunci Laporan Kamu" name="id_lapor">
-                     <div class="input-group-btn">
-                        <a href="<?= site_url(); ?>auth" class="btn btn-primary"><i class="fa fa-search"></i> Lacak</a>
-                     </div>
+               <?= form_open(site_url('dashboard/tracking')); ?>
+               <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Cari Tracking ID atau Kata Kunci Laporan Kamu" name="id_lapor">
+                  <div class="input-group-btn">
+                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Lacak</button>
                   </div>
-               </form>
+               </div>
+               <?= form_close(); ?>
             </div>
          </div>
       </div>
@@ -27,17 +27,23 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-               <li class="nav-item<?= ($url == '' || $url == 'home') ? ' active' : ''; ?>">
-                  <a class="nav-link px-3" href="<?= site_url(); ?>">Beranda</a>
-               </li>
-               <li class="nav-item<?= ($url == 'tentang-kami') ? ' active' : ''; ?>">
-                  <a class="nav-link px-3" href="<?= site_url('tentang-kami'); ?>">Tentang Kami</a>
+               <li class="nav-item<?= ($url == 'dashboard') ? ' active' : ''; ?>">
+                  <a class="nav-link px-3" href="<?= site_url('dashboard'); ?>">Dasbor</a>
                </li>
                <li class="nav-item">
                   <a href="#" class="nav-link px-3" data-toggle="collapse" data-target="#searchBar" aria-controls="searchBar" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-search"></i> Lacak Laporan</a>
                </li>
             </ul>
-            <a id="btn-login" href="<?= site_url('auth'); ?>" class="btn btn-outline-secondary"><span class="px-2">Login</span></a>
+            <div class="dropdown show">
+               <a id="btn-login" class="btn btn-outline-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user"></i> <?= $this->userPelapor->nama_pelapor; ?>
+               </a>
+
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="<?= site_url(); ?>profile">Profil Saya</a>
+                  <a class="dropdown-item" href="<?= site_url(); ?>auth/logout">Logout</a>
+               </div>
+            </div>
          </div>
       </div>
    </nav>
