@@ -1,4 +1,4 @@
-<section id="hero" class="text-center">
+<section id="hero" class="text-center pt-0">
    <div id="particle-js">
    </div>
    <div class="container-fluid mx-0 px-0 pt-5">

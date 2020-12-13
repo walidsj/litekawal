@@ -7,14 +7,17 @@
 
 <body>
   <?php $this->load->view('pages/client/components/navbarClient'); ?>
-  <?php $this->load->view('pages/client/components/heroClient'); ?>
   <section id="gradient-white">
-    <div class="container">
-      <div class="row justify-content-center mb-4">
-        <div class="col-md-7">
-          <div id="card-form" class="card p-3 border-0 shadow">
+    <div class="container mt-3 pb-3">
+      <div class="row mb-4">
+        <div class="col-md-6 mb-4">
+          <div class="card p-3 border-0 shadow">
             <?= form_open(current_url() . '?' . $_SERVER['QUERY_STRING']); ?>
             <div class="card-body">
+              <div class="form-group">
+                <h5 class="font-weight-bold">Ajukan Laporan</h5>
+                <hr>
+              </div>
               <!-- <hr class="lead-hr-gray"> -->
               <div class="form-group">
                 <label class="d-block font-weight-bold">Pilih Tipe Laporan <span class="text-danger">*</span></label>
@@ -89,13 +92,27 @@
             <?= form_close(); ?>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <?php $this->load->view('pages/client/components/flowClient'); ?>
+        <div class="col-md-6">
+          <div class="card p-3 border-0 shadow">
+            <div class="card-body">
+              <div class="form-group">
+                <h5 class="font-weight-bold">Akunku</h5>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="card p-3 mt-4 border-0 shadow">
+            <div class="card-body">
+              <div class="form-group">
+                <h5 class="font-weight-bold">Laporanku</h5>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-  <?php $this->load->view('pages/guest/components/counter'); ?>
   <?php $this->load->view('components/footer'); ?>
 
   <?php $this->load->view('partials/scripts'); ?>
