@@ -215,7 +215,7 @@
                           <div class="card-body p-0">
                             <table class="table p-0 m-0 table-borderless">
                               <tr>
-                                <td width="1%">
+                                <td class="pr-0" width="1%">
                                   <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
                                 </td>
                                 <td>
@@ -253,7 +253,7 @@
                           <div class="card-body p-0">
                             <table class="table p-0 m-0 table-borderless">
                               <tr>
-                                <td width="1%">
+                                <td class="pr-0" width="1%">
                                   <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
                                 </td>
                                 <td>
