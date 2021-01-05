@@ -10,6 +10,7 @@ class Home extends CI_Controller
 			redirect('dashboard');
 		}
 	}
+
 	public function index()
 	{
 		$this->load->model('Laporan_model');
@@ -44,11 +45,12 @@ class Home extends CI_Controller
 
 			$itemLapor = [
 				'tipe_lapor' => ($url_string == '') ? 1 : 2,
-				'judul_lapor' => $this->input->post('judul_lapor', true),
-				'isi_lapor' => $this->input->post('isi_lapor', true),
+				'kode_lapor' => strtoupper(uniqid()),
+				'judul_lapor' => htmlspecialchars($this->input->post('judul_lapor', true)),
+				'isi_lapor' => htmlspecialchars($this->input->post('isi_lapor', true)),
 				'tanggal_lapor' => date('Y-m-d H:i:s', now()),
-				'kejadian_lapor' => $this->input->post('kejadian_lapor', true),
-				'lokasi_lapor' => $this->input->post('lokasi_lapor', true),
+				'kejadian_lapor' => htmlspecialchars($this->input->post('kejadian_lapor', true)),
+				'lokasi_lapor' => htmlspecialchars($this->input->post('lokasi_lapor', true)),
 				'instansi_lapor' => $this->input->post('instansi_lapor', true),
 				'kategori_lapor' => $this->input->post('kategori_lapor', true),
 				'lampiran_lapor' => $this->input->post('lampiran_lapor', true),

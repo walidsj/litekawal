@@ -206,7 +206,7 @@ define('VIEWPATH', $view_folder . DIRECTORY_SEPARATOR);
  */
 
 require_once BASEPATH . 'dotenv/autoloader.php';
-$dotenv = new Dotenv\Dotenv(APPPATH);
+$dotenv = new Dotenv\Dotenv(APPPATH . 'config');
 $dotenv->load();
 
 /*

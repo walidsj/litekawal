@@ -1,6 +1,6 @@
 <?php $url = $this->uri->segment(1); ?>
-<nav class="navbar navbar-expand-md navbar-light border-0 text-uppercase font-weight-bold py-3">
-   <div class="container">
+<nav class="navbar navbar-expand-md navbar-light border-0 text-uppercase font-weight-bold py-3 shadow-sm">
+   <div class="container-lg">
       <a class="navbar-brand" href="<?= site_url(); ?>">
          <img src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" height="42" class="logo-warna" alt="<?= getenv('app.TitleName'); ?>">
       </a>
@@ -15,11 +15,13 @@
          </ul>
          <div class="dropdown show">
             <a id="btn-login" class="btn btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fa fa-user"></i> <?= $this->userPelapor->nama_pelapor; ?>
+               <i class="fa fa-user mr-2"></i> Akun saya
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-               <!-- <a class="dropdown-item" href="<?= site_url(); ?>profile">Profil Saya</a> -->
+               <a class="dropdown-item" href="<?= site_url(); ?>profile">Ubah Profil</a>
+               <a class="dropdown-item" href="<?= site_url(); ?>profile/change-password">Ubah Kata Sandi</a>
+               <hr>
                <a class="dropdown-item" href="<?= site_url(); ?>auth/logout">Logout</a>
             </div>
          </div>
