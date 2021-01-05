@@ -9,20 +9,20 @@
                <span class="d-block mb-3 text-muted">© 2020 Tim Kawal</span>
             </div>
             <div class="col-6 col-md">
-               <h5 class="font-weight-bold text-muted text-uppercase">Tentang Kami</h5>
+               <h6 class="font-weight-bold text-muted text-uppercase">Tentang Kami</h6>
                <ul class="list-unstyled text-small">
                   <li><a class="text-muted" href="<?= site_url('tentang-kami'); ?>">Tim Kawal</a></li>
                   <li><a class="text-muted" href="#">BLM PKN STAN</a></li>
                </ul>
             </div>
             <div class="col-6 col-md">
-               <h5 class="font-weight-bold text-muted text-uppercase">Elemen Kampus</h5>
+               <h6 class="font-weight-bold text-muted text-uppercase">Elemen Kampus</h6>
                <ul class="list-unstyled text-small">
                   <li><a class="text-muted" href="<?= site_url('daftar-instansi'); ?>">Daftar Instansi</a></li>
                </ul>
             </div>
             <div class="col-6 col-md">
-               <h5 class="font-weight-bold text-muted text-uppercase">Kontak</h5>
+               <h6 class="font-weight-bold text-muted text-uppercase">Kontak</h6>
                <ul class="list-unstyled text-small">
                   <li><a class="text-muted" href="https://instagram.com/kawalpknstan">Instagram</a></li>
                   <li><a class="text-muted" href="https://wa.me/6285157626557">WhatsApp</a></li>
