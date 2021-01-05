@@ -68,7 +68,7 @@
                   <?= form_close(); ?>
                </div>
                <div class="text-center mt-4">
-                  <a href="<?= site_url(); ?>" class="btn btn-warning"><i class="fa fa-home"></i> Kembali ke Beranda</a>
+                  <a href="<?= site_url(); ?>" class="btn btn-outline-secondary"><i class="fa fa-home"></i> Kembali ke Beranda</a>
                </div>
             </div>
          </div>

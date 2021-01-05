@@ -68,7 +68,7 @@
                   <?= form_close(); ?>
                </div>
                <div class="text-center mt-4">
-                  <a href="<?= current_url() . '?go=back'; ?>" class="btn btn-warning"><i class="fa fa-home"></i> Kembali ke Beranda</a>
+                  <a href="<?= current_url() . '?go=back'; ?>" class="btn btn-outline-secondary"><i class="fa fa-home"></i> Kembali ke Beranda</a>
                </div>
             </div>
          </div>
