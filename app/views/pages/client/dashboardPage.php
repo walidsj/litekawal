@@ -33,11 +33,11 @@
                       <label for="tipe_lapor" class="d-block font-weight-bold">Detail Aspirasi <span class="text-danger">*</span></label>
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ketik Judul Laporan Kamu *" required name="judul_lapor" value="<?= set_value('judul_lapor'); ?>">
+                      <input type="text" class="form-control" placeholder="Ketik Judul Aspirasi Kamu *" required name="judul_lapor" value="<?= set_value('judul_lapor'); ?>">
                       <?= form_error('judul_lapor'); ?>
                     </div>
                     <div class="form-group">
-                      <textarea rows="6" class="form-control" placeholder="Ketik Isi Laporan Kamu *" required name="isi_lapor"><?= set_value('isi_lapor'); ?></textarea>
+                      <textarea rows="6" class="form-control" placeholder="Ketik Isi Aspirasi Kamu *" required name="isi_lapor"><?= set_value('isi_lapor'); ?></textarea>
                       <?= form_error('isi_lapor'); ?>
                     </div>
                     <div class=" form-group">
@@ -56,7 +56,7 @@
                       <?= form_error('instansi_lapor'); ?>
                     </div>
                     <div class="form-group">
-                      <select class="form-control" data-placeholder="Pilih Kategori Laporan *" data-allow-clear="1" name="kategori_lapor">
+                      <select class="form-control" data-placeholder="Pilih Kategori Aspirasi *" data-allow-clear="1" name="kategori_lapor">
                         <option></option>
                         <?php foreach ($katlapList as $katlap) : ?>
                           <option value="<?= $katlap->id_katlap; ?>" <?= (set_value('kategori_lapor') == $katlap->id_katlap) ? 'selected' : ''; ?>><?= $katlap->judul_katlap; ?></option>
@@ -73,7 +73,7 @@
                           </div>
                           <div class="custom-control custom-switch custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="rahasia_lapor" name="rahasia_lapor">
-                            <label class="custom-control-label tooltips" for="rahasia_lapor" data-toggle="tooltip" data-placement="top" title="Laporan tidak ditampilkan di portal jika fitur rahasia diaktifkan.">Rahasia</label>
+                            <label class="custom-control-label tooltips" for="rahasia_lapor" data-toggle="tooltip" data-placement="top" title="Aspirasi tidak ditampilkan di portal jika fitur rahasia diaktifkan.">Rahasia</label>
                           </div>
                         </div>
                         <div class="col-md-4 text-right mt-3">
@@ -90,11 +90,11 @@
                       <label for="tipe_lapor" class="d-block font-weight-bold">Detail Pengaduan <span class="text-danger">*</span></label>
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ketik Judul Laporan Kamu *" required name="judul_lapor" value="<?= set_value('judul_lapor'); ?>">
+                      <input type="text" class="form-control" placeholder="Ketik Judul Pengaduan Kamu *" required name="judul_lapor" value="<?= set_value('judul_lapor'); ?>">
                       <?= form_error('judul_lapor'); ?>
                     </div>
                     <div class="form-group">
-                      <textarea rows="6" class="form-control" placeholder="Ketik Isi Laporan Kamu *" required name="isi_lapor"><?= set_value('isi_lapor'); ?></textarea>
+                      <textarea rows="6" class="form-control" placeholder="Ketik Isi Pengaduan Kamu *" required name="isi_lapor"><?= set_value('isi_lapor'); ?></textarea>
                       <?= form_error('isi_lapor'); ?>
                     </div>
                     <div class="form-group">
@@ -121,7 +121,7 @@
                       <?= form_error('instansi_lapor'); ?>
                     </div>
                     <div class="form-group">
-                      <select class="form-control" data-placeholder="Pilih Kategori Laporan *" data-allow-clear="1" name="kategori_lapor">
+                      <select class="form-control" data-placeholder="Pilih Kategori Pengaduan *" data-allow-clear="1" name="kategori_lapor">
                         <option></option>
                         <?php foreach ($katlapList as $katlap) : ?>
                           <option value="<?= $katlap->id_katlap; ?>" <?= (set_value('kategori_lapor') == $katlap->id_katlap) ? 'selected' : ''; ?>><?= $katlap->judul_katlap; ?></option>
@@ -138,7 +138,7 @@
                           </div>
                           <div class="custom-control custom-switch custom-control-inline">
                             <input type="checkbox" class="custom-control-input" id="rahasia_lapor" name="rahasia_lapor">
-                            <label class="custom-control-label tooltips" for="rahasia_lapor" data-toggle="tooltip" data-placement="top" title="Laporan tidak ditampilkan di portal jika fitur rahasia diaktifkan.">Rahasia</label>
+                            <label class="custom-control-label tooltips" for="rahasia_lapor" data-toggle="tooltip" data-placement="top" title="Pengaduan tidak ditampilkan di portal jika fitur rahasia diaktifkan.">Rahasia</label>
                           </div>
                         </div>
                         <div class="col-md-4 text-right mt-3">
