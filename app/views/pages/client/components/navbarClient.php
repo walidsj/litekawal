@@ -1,5 +1,5 @@
 <?php $url = $this->uri->segment(1); ?>
-<nav class="navbar navbar-expand-md navbar-light border-0 text-uppercase font-weight-bold py-3 shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light border-0 font-weight-bold py-3 shadow-sm">
    <div class="container-lg">
       <a class="navbar-brand" href="<?= site_url(); ?>">
          <img src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" height="42" class="logo-warna" alt="<?= getenv('app.TitleName'); ?>">
@@ -8,7 +8,7 @@
          <i class="fa fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav mr-auto">
+         <ul class="navbar-nav mr-auto text-uppercase">
             <li class="nav-item<?= ($url == 'dashboard') ? ' active' : ''; ?>">
                <a class="nav-link px-3" href="<?= site_url('dashboard'); ?>">Dasbor</a>
             </li>

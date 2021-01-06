@@ -2,7 +2,7 @@
    <div id="particle-js">
    </div>
    <div class="container-fluid banner">
-      <div class="px-2 py-5 text-center text-white">
+      <div class="px-2 py-4 text-center text-white">
          <img class="d-block mx-auto mb-4" src="<?= base_url('public/assets/img/logo-stand.svg'); ?>" alt="<?= getenv('app.TitleName'); ?>" height="92">
          <h2 class="title font-weight-bold">Kanal Aspirasi Mahasiswa</h2>
          <p class="lead">Sampaikan laporan Kamu langsung ke Elemen Kampus PKN STAN</p>

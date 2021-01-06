@@ -11,6 +11,7 @@
     <div class="container-lg mt-5 pb-3">
       <div class="row mb-4">
         <div class="col-lg-7 col-md-6 mb-4">
+          <!-- form submit laporan -->
           <div class="card p-3 border-0 shadow">
             <div class="card-body">
               <div class="form-group mb-4">
@@ -81,7 +82,6 @@
                         </div>
                       </div>
                     </div>
-
                     <?= form_close(); ?>
                   </div>
                   <div class="tab-pane fade pt-3" id="kirimpengaduan">
@@ -152,6 +152,108 @@
               </div>
             </div>
           </div>
+          <!-- form submit laporan -->
+          <!-- laporanku -->
+          <div class="card p-3 mt-4 border-0 shadow">
+            <div class="card-body">
+              <div class="form-group">
+                <h5 class="font-weight-bold mb-4">Laporan Saya</h5>
+                <ul class="nav nav-tabs font">
+                  <li class="nav-item">
+                    <a href="#aspirasi" class="nav-link active" data-toggle="tab">Aspirasi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#pengaduan" class="nav-link" data-toggle="tab">Pengaduan</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade pt-3 show active" id="aspirasi">
+                    <?php foreach ($laporanList as $laporan) : ?>
+                      <?php if ($laporan->tipe_lapor == 1) : ?>
+                        <div class="card border-0 shadow-sm p-0 my-3">
+                          <div class="card-body p-0">
+                            <table class="table p-0 m-0 table-borderless">
+                              <tr>
+                                <td class="pr-0" width="1%">
+                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
+                                </td>
+                                <td>
+                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
+                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 128 ? substr($laporan->isi_lapor, 0, 128) . "..." : $laporan->isi_lapor; ?></p>
+                                  <small class="d-block text-muted">
+                                    <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-md-3"></i><?= $laporan->nama_instansi; ?>
+                                  </small>
+                                  <small class="d-block text-muted font-italic">
+                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
+                                    <?php switch ($laporan->status_lapor) {
+                                      case 0:
+                                        echo "Belum diverifikasi";
+                                        break;
+                                      case 1:
+                                        echo "Terverifikasi";
+                                        break;
+                                      case 2:
+                                        echo "Diproses";
+                                        break;
+                                      case 3:
+                                        echo "Selesai";
+                                        break;
+                                    } ?>
+                                  </small>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </div>
+                  <div class="tab-pane fade pt-3" id="pengaduan">
+                    <?php foreach ($laporanList as $laporan) : ?>
+                      <?php if ($laporan->tipe_lapor == 2) : ?>
+                        <div class="card border-0 shadow-sm p-0 my-3">
+                          <div class="card-body p-0">
+                            <table class="table p-0 m-0 table-borderless">
+                              <tr>
+                                <td class="pr-0" width="1%">
+                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
+                                </td>
+                                <td>
+                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
+                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 128 ? substr($laporan->isi_lapor, 0, 128) . "..." : $laporan->isi_lapor; ?></p>
+                                  <small class="d-block text-muted">
+                                    <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-university mr-1"></i><?= $laporan->nama_instansi; ?>
+                                  </small>
+                                  <small class="d-block text-muted font-italic">
+                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
+                                    <?php switch ($laporan->status_lapor) {
+                                      case 0:
+                                        echo "Belum diverifikasi";
+                                        break;
+                                      case 1:
+                                        echo "Terverifikasi";
+                                        break;
+                                      case 2:
+                                        echo "Diproses";
+                                        break;
+                                      case 3:
+                                        echo "Selesai";
+                                        break;
+                                    } ?>
+                                  </small>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- laporanku -->
         </div>
         <div class="col-lg-5 col-md-6">
           <div class="card border-0 shadow">
@@ -199,92 +301,7 @@
             <div class="card-body">
               <div class="form-group">
                 <h5 class="font-weight-bold mb-4">Laporan Saya</h5>
-                <ul class="nav nav-tabs font">
-                  <li class="nav-item">
-                    <a href="#aspirasi" class="nav-link active" data-toggle="tab">Aspirasi</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#pengaduan" class="nav-link" data-toggle="tab">Pengaduan</a>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane fade pt-3 show active" id="aspirasi">
-                    <?php foreach ($laporanList as $laporan) : ?>
-                      <?php if ($laporan->tipe_lapor == 1) : ?>
-                        <div class="card border-0 shadow-sm p-0 my-3">
-                          <div class="card-body p-0">
-                            <table class="table p-0 m-0 table-borderless">
-                              <tr>
-                                <td class="pr-0" width="1%">
-                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
-                                </td>
-                                <td>
-                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
-                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 64 ? substr($laporan->isi_lapor, 0, 64) . "..." : $laporan->isi_lapor; ?></p>
-                                  <small class="d-block text-muted font-italic">
-                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
-                                    <?php switch ($laporan->status_lapor) {
-                                      case 0:
-                                        echo "Belum diverifikasi";
-                                        break;
-                                      case 1:
-                                        echo "Terverifikasi";
-                                        break;
-                                      case 2:
-                                        echo "Diproses";
-                                        break;
-                                      case 3:
-                                        echo "Selesai";
-                                        break;
-                                    } ?>
-                                  </small>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </div>
-                  <div class="tab-pane fade pt-3" id="pengaduan">
-                    <?php foreach ($laporanList as $laporan) : ?>
-                      <?php if ($laporan->tipe_lapor == 2) : ?>
-                        <div class="card border-0 shadow-sm p-0 my-3">
-                          <div class="card-body p-0">
-                            <table class="table p-0 m-0 table-borderless">
-                              <tr>
-                                <td class="pr-0" width="1%">
-                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
-                                </td>
-                                <td>
-                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
-                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 64 ? substr($laporan->isi_lapor, 0, 64) . "..." : $laporan->isi_lapor; ?></p>
-                                  <small class="d-block text-muted font-italic">
-                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
-                                    <?php switch ($laporan->status_lapor) {
-                                      case 0:
-                                        echo "Belum diverifikasi";
-                                        break;
-                                      case 1:
-                                        echo "Terverifikasi";
-                                        break;
-                                      case 2:
-                                        echo "Diproses";
-                                        break;
-                                      case 3:
-                                        echo "Selesai";
-                                        break;
-                                    } ?>
-                                  </small>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

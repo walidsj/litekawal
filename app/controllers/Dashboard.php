@@ -28,7 +28,7 @@ class Dashboard extends CI_Controller
 		$validation = $this->form_validation;
 		if ($tipe_lapor == 'aspirasi') {
 			$validation->set_rules($laporan->rules_aspirasi());
-		} else {
+		} elseif ($tipe_lapor == 'pengaduan') {
 			$validation->set_rules($laporan->rules_pengaduan());
 		}
 

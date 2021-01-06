@@ -37,10 +37,10 @@
                      Kawal merupakan akronim dari “Kanal Aspirasi Mahasiswa dan Layanan Informasi.” Sebuah media berbentuk website, yang akan menjadi pintu utama masuknya aspirasi dan aduan oleh mahasiswa terkait hal-hal yang terjadi di lingkungan kampus PKN STAN.
                   </p>
                   <p>Cakupan Kawal:
-                     <ul>
-                        <li>Aspirasi Mahasiswa</li>
-                        <li>Aduan Mahasiswa</li>
-                     </ul>
+                  <ul>
+                     <li>Aspirasi Mahasiswa</li>
+                     <li>Aduan Mahasiswa</li>
+                  </ul>
                   </p>
                   <h5 class="pt-4 font-weight-bold border-bottom pb-2 mb-3">Tujuan Kawal</h5>
                   <p>

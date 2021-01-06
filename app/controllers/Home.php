@@ -25,26 +25,22 @@ class Home extends CI_Controller
 			redirect('home/next-step');
 		}
 
-		$url_string = $this->input->get('tipe', true);
-		if ($url_string != '' && $url_string != 'pengaduan') {
-			show_404();
-		}
+		$tipe_lapor = $this->input->post('tipe_lapor', true);
 
 		$laporan = $this->Laporan_model;
 		$validation = $this->form_validation;
-		if ($url_string == '') {
+		if ($tipe_lapor == 'aspirasi') {
 			$validation->set_rules($laporan->rules_aspirasi());
-		} else {
+		} elseif ($tipe_lapor == 'pengaduan') {
 			$validation->set_rules($laporan->rules_pengaduan());
 		}
 
 		if ($validation->run() == true) {
 			$isAnonim = $this->input->post('anonim_lapor', true);
 			$isRahasia = $this->input->post('rahasia_lapor', true);
-			$url_string = $this->input->get('tipe', true);
 
 			$itemLapor = [
-				'tipe_lapor' => ($url_string == '') ? 1 : 2,
+				'tipe_lapor' => ($tipe_lapor == 'aspirasi') ? 1 : 2,
 				'kode_lapor' => strtoupper(uniqid()),
 				'judul_lapor' => htmlspecialchars($this->input->post('judul_lapor', true)),
 				'isi_lapor' => htmlspecialchars($this->input->post('isi_lapor', true)),
