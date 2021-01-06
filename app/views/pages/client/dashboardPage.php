@@ -184,7 +184,7 @@
                                     <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-md-3"></i><?= $laporan->nama_instansi; ?>
                                   </small>
                                   <small class="d-block text-muted font-italic">
-                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
+                                    #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;
                                     <?php switch ($laporan->status_lapor) {
                                       case 0:
                                         echo "Belum diverifikasi";
@@ -225,7 +225,7 @@
                                     <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-university mr-1"></i><?= $laporan->nama_instansi; ?>
                                   </small>
                                   <small class="d-block text-muted font-italic">
-                                    <strong>#<?= $laporan->kode_lapor; ?></strong>&nbsp;-&nbsp;
+                                    #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;
                                     <?php switch ($laporan->status_lapor) {
                                       case 0:
                                         echo "Belum diverifikasi";
@@ -297,14 +297,16 @@
               <!-- /.row -->
             </div>
           </div>
+          <!---- Intansi Card ---->
           <div class="card p-3 mt-4 border-0 shadow">
             <div class="card-body">
               <div class="form-group">
-                <h5 class="font-weight-bold mb-4">Laporan Saya</h5>
+                <h5 class="font-weight-bold mb-4">Instansi Terbaru</h5>
 
               </div>
             </div>
           </div>
+          <!---- Intansi Card ---->
         </div>
       </div>
     </div>
