@@ -175,7 +175,7 @@
                             <table class="table p-0 m-0 table-borderless">
                               <tr>
                                 <td class="pr-0" width="1%">
-                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
+                                  <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="54">
                                 </td>
                                 <td>
                                   <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
@@ -216,7 +216,7 @@
                             <table class="table p-0 m-0 table-borderless">
                               <tr>
                                 <td class="pr-0" width="1%">
-                                  <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="64">
+                                  <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="54">
                                 </td>
                                 <td>
                                   <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
@@ -260,7 +260,7 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div id="gradient-img" class="text-white px-2 py-3">
               <div class="img rounded pb-2 text-center">
-                <img class="img-circle" src="<?= base_url(); ?>public/assets/img/user-profil.png" alt="User Avatar" width="84">
+                <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="84">
               </div>
               <div class="text-center">
                 <h4 class="font-weight-bolder"><?= $this->userPelapor->nama_pelapor; ?></h4>
