@@ -19,6 +19,7 @@ class Dashboard extends CI_Controller
 		$data['title'] = 'Dasbor Pelapor';
 
 		$data['instansiList'] = $this->db->order_by('nama_instansi', 'ASC')->get_where('instansi', ['status_instansi' => 1])->result();
+		$data['instansiUserList'] = $this->db->join('instansi', 'instansi.id_instansi = laporan.instansi_lapor')->order_by('nama_instansi', 'ASC')->group_by('instansi.id_instansi')->get_where('laporan', ['status_instansi' => 1, 'idpelapor_lapor' => $this->userPelapor->id_pelapor])->result();
 		$data['katlapList'] = $this->db->order_by('judul_katlap', 'ASC')->get_where('kategori_laporan', ['status_katlap' => 1])->result();
 		$data['katinsList'] = $this->db->order_by('judul_katins', 'ASC')->get_where('kategori_instansi', ['status_katins' => 1])->result();
 
@@ -78,7 +79,7 @@ class Dashboard extends CI_Controller
 				redirect(current_url());
 			}
 		} else {
-			$data['laporanList'] = $this->db->join('instansi', 'instansi.id_instansi = laporan.instansi_lapor')->join('kategori_laporan', 'kategori_laporan.id_katlap = laporan.kategori_lapor')->where('idpelapor_lapor', $this->userPelapor->id_pelapor)->get('laporan')->result();
+			$data['laporanList'] = $this->db->join('instansi', 'instansi.id_instansi = laporan.instansi_lapor')->join('kategori_laporan', 'kategori_laporan.id_katlap = laporan.kategori_lapor')->where('idpelapor_lapor', $this->userPelapor->id_pelapor)->order_by('tanggal_lapor', 'DESC')->get('laporan')->result();
 
 			$this->load->view('pages/client/dashboardPage', $data);
 		}
