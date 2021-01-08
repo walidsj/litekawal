@@ -47,7 +47,7 @@ class Auth extends CI_Controller
 						$this->session->set_userdata('userPelapor', $userPelapor);
 						redirect('dashboard');
 					} else {
-						$this->session->set_flashdata('sessionEmail', $email);
+						$this->session->set_flashdata('sessionEmail', $npm);
 						$this->session->set_flashdata('alert', 'error|Login gagal. Kata sandi salah!');
 						redirect(current_url());
 					}
@@ -56,7 +56,7 @@ class Auth extends CI_Controller
 					redirect(current_url());
 				}
 			} else {
-				$this->session->set_flashdata('alert', 'error|Alamat email tidak terdaftar!');
+				$this->session->set_flashdata('alert', 'error|Akun tidak terdaftar!');
 				redirect(current_url());
 			}
 		} else {

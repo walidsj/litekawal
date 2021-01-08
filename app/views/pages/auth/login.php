@@ -21,13 +21,17 @@
                      <h3 class="card-title font-weight-bold mb-0">Login</h3>
                      <span class="card-description">Silakan login untuk melanjutkan</span>
                      <hr class="mb-4">
-                     <div class="form-group">
-                        <label for="npm_pelapor" class="d-block font-weight-bold">No. Pokok Mahasiswa <span class="text-danger">*</span></label>
+                     <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div>
                         <input id="npm_pelapor" type="number" class="form-control" placeholder="No. Pokok Mahasiswa" required name="npm_pelapor" value="<?= (!empty(set_value('npm_pelapor'))) ? set_value('npm_pelapor') : ((!empty($this->session->sessionEmail)) ? $this->session->sessionEmail : ''); ?>">
                         <?= form_error('npm_pelapor'); ?>
                      </div>
-                     <div class="form-group">
-                        <label for="password_pelapor" class="d-block font-weight-bold">Kata Sandi <span class="text-danger">*</span></label>
+                     <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text"><i class="fa fa-lock"></i></div>
+                        </div>
                         <input id="password_pelapor" type="password" class="form-control" placeholder="Kata Sandi" required name="password_pelapor" value="<?= set_value('password_pelapor'); ?>">
                         <?= form_error('password_pelapor'); ?>
                      </div>

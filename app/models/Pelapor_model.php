@@ -13,7 +13,7 @@ class Pelapor_model extends CI_Model
             [
                 'field' => 'npm_pelapor',
                 'label' => 'No. Pokok Mahasiswa',
-                'rules' => 'required|numeric|trim|exact_length[10]'
+                'rules' => 'required|numeric|trim'
             ],
             [
                 'field' => 'password_pelapor',
