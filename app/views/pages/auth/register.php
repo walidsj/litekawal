@@ -27,8 +27,8 @@
                         <?= form_error('nama_pelapor'); ?>
                      </div>
                      <div class="form-group">
-                        <label for="npm_pelapor" class="d-block font-weight-bold">NPM <span class="text-danger">*</span></label>
-                        <input id="npm_pelapor" type="number" class="form-control" placeholder="NPM" required name="npm_pelapor" value="<?= set_value('npm_pelapor'); ?>">
+                        <label for="npm_pelapor" class="d-block font-weight-bold">No. Pokok Mahasiswa <span class="text-danger">*</span></label>
+                        <input id="npm_pelapor" type="number" class="form-control" placeholder="No. Pokok Mahasiswa" required name="npm_pelapor" value="<?= set_value('npm_pelapor'); ?>">
                         <?= form_error('npm_pelapor'); ?>
                      </div>
                      <div class="form-group">

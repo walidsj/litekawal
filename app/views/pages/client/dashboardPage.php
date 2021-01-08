@@ -183,7 +183,7 @@
                                     <span class="text-dark font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
                                     <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
                                     <small class="d-block text-muted">
-                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-3"></i><?= $laporan->nama_instansi; ?>
+                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-3"></i><?= $laporan->nama_instansi; ?>
                                     </small>
                                     <!-- <small class="d-block text-muted font-italic">
                                     #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;
@@ -235,7 +235,7 @@
                                     <span class="text-dark font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
                                     <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
                                     <small class="d-block text-muted">
-                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-university mr-1"></i><?= $laporan->nama_instansi; ?>
+                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-3"></i><?= $laporan->nama_instansi; ?>
                                     </small>
                                     <!-- <small class="d-block text-muted font-italic">
                                     #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;

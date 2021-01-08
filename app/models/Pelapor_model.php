@@ -5,10 +5,15 @@ class Pelapor_model extends CI_Model
     public function rulesLogin()
     {
         return [
+            // [
+            //     'field' => 'email_pelapor',
+            //     'label' => 'Alamat Email',
+            //     'rules' => 'required|valid_email|trim|max_length[128]'
+            // ],
             [
-                'field' => 'email_pelapor',
-                'label' => 'Alamat Email',
-                'rules' => 'required|valid_email|trim|max_length[128]'
+                'field' => 'npm_pelapor',
+                'label' => 'No. Pokok Mahasiswa',
+                'rules' => 'required|numeric|trim|exact_length[10]'
             ],
             [
                 'field' => 'password_pelapor',
@@ -22,10 +27,15 @@ class Pelapor_model extends CI_Model
     {
         return [
             [
-                'field' => 'email_pelapor',
-                'label' => 'Alamat Email',
-                'rules' => 'required|valid_email|trim|max_length[128]'
+                'field' => 'npm_pelapor',
+                'label' => 'No. Pokok Mahasiswa',
+                'rules' => 'required|numeric|trim|exact_length[10]'
             ]
+            // [
+            //     'field' => 'email_pelapor',
+            //     'label' => 'Alamat Email',
+            //     'rules' => 'required|valid_email|trim|max_length[128]'
+            // ]
         ];
     }
 
@@ -50,7 +60,7 @@ class Pelapor_model extends CI_Model
             ],
             [
                 'field' => 'npm_pelapor',
-                'label' => 'NPM',
+                'label' => 'No. Pokok Mahasiswa',
                 'rules' => 'required|numeric|trim|exact_length[10]'
             ],
             [

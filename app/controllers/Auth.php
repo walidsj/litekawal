@@ -32,15 +32,16 @@ class Auth extends CI_Controller
 		$validation->set_rules($pelapor->rulesLogin());
 
 		if ($validation->run() == true) {
-			$email = $this->input->post('email_pelapor', true);
+			$npm = $this->input->post('npm_pelapor', true);
 			$password = $this->input->post('password_pelapor', true);
 
-			$dataLogin = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+			$dataLogin = $this->db->get_where('pelapor', ['npm_pelapor' => $npm])->row();
 			if ($dataLogin) {
 				if ($dataLogin->status_pelapor > 0) {
 					if (password_verify($password, $dataLogin->password_pelapor) == true) {
 						$userPelapor = [
 							'id_pelapor' => $dataLogin->id_pelapor,
+							'npm_pelapor' => $dataLogin->npm_pelapor,
 							'email_pelapor' => $dataLogin->email_pelapor
 						];
 						$this->session->set_userdata('userPelapor', $userPelapor);
@@ -188,8 +189,10 @@ class Auth extends CI_Controller
 		$pelapor = $this->Pelapor_model;
 		$validation->set_rules($pelapor->rulesResetPass());
 		if ($validation->run() == true) {
-			$email = $this->input->post('email_pelapor', true);
-			$dataPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+			$npm = $this->input->post('npm_pelapor', true);
+			$dataPelapor = $this->db->get_where('pelapor', ['npm_pelapor' => $npm])->row();
+
+			$email = $dataPelapor->email_pelapor;
 
 			$dataToken = [
 				'emailpelapor_tokpel' => $email,
@@ -225,7 +228,7 @@ class Auth extends CI_Controller
 					$resultToken = $this->db->affected_rows();
 
 					if ($resultToken > 0) {
-						$this->session->set_flashdata('alert', 'success|Email reset berhasil dikirim. Cek inbox Kamu.');
+						$this->session->set_flashdata('alert', 'success|Email reset berhasil dikirim. Cek inbox: ' . $email);
 						redirect('auth');
 					} else {
 						$this->session->set_flashdata('alert', 'error|Token gagal digenerasi. Hubungi administrator.');

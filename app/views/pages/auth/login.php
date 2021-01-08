@@ -22,9 +22,9 @@
                      <span class="card-description">Silakan login untuk melanjutkan</span>
                      <hr class="mb-4">
                      <div class="form-group">
-                        <label for="email_pelapor" class="d-block font-weight-bold">Alamat Email <span class="text-danger">*</span></label>
-                        <input id="email_pelapor" type="email" class="form-control" placeholder="Alamat Email" required name="email_pelapor" value="<?= (!empty(set_value('email_pelapor'))) ? set_value('email_pelapor') : ((!empty($this->session->sessionEmail)) ? $this->session->sessionEmail : ''); ?>">
-                        <?= form_error('email_pelapor'); ?>
+                        <label for="npm_pelapor" class="d-block font-weight-bold">No. Pokok Mahasiswa <span class="text-danger">*</span></label>
+                        <input id="npm_pelapor" type="number" class="form-control" placeholder="No. Pokok Mahasiswa" required name="npm_pelapor" value="<?= (!empty(set_value('npm_pelapor'))) ? set_value('npm_pelapor') : ((!empty($this->session->sessionEmail)) ? $this->session->sessionEmail : ''); ?>">
+                        <?= form_error('npm_pelapor'); ?>
                      </div>
                      <div class="form-group">
                         <label for="password_pelapor" class="d-block font-weight-bold">Kata Sandi <span class="text-danger">*</span></label>
