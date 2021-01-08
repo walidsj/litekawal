@@ -40,6 +40,7 @@ class Dashboard extends CI_Controller
 			$itemLapor = [
 				'tipe_lapor' => ($tipe_lapor == 'aspirasi') ? 1 : 2,
 				'kode_lapor' => strtoupper(uniqid()),
+				'slug_lapor' => strlen(url_title(htmlspecialchars($this->input->post('judul_lapor', true)), 'dash', true)) > 255 ? substr(url_title(htmlspecialchars($this->input->post('judul_lapor', true)), 'dash', true), 0, 255) : url_title(htmlspecialchars($this->input->post('judul_lapor', true)), 'dash', true),
 				'judul_lapor' => htmlspecialchars($this->input->post('judul_lapor', true)),
 				'isi_lapor' => htmlspecialchars($this->input->post('isi_lapor', true)),
 				'tanggal_lapor' => date('Y-m-d H:i:s', now()),

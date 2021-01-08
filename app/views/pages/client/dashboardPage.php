@@ -167,22 +167,25 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane fade pt-3 show active" id="aspirasi">
-                    <?php foreach ($laporanList as $laporan) : ?>
+                    <?php
+                    $i_aspirasi = 0;
+                    foreach ($laporanList as $laporan) : ?>
                       <?php if ($laporan->tipe_lapor == 1) : ?>
-                        <div class="card border-0 shadow-sm p-2 my-3">
-                          <div class="card-body p-0">
-                            <table class="table p-0 m-0 table-borderless">
-                              <tr>
-                                <td class="pr-0" width="1%">
-                                  <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="48">
-                                </td>
-                                <td>
-                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
-                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
-                                  <small class="d-block text-muted">
-                                    <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-md-3"></i><?= $laporan->nama_instansi; ?>
-                                  </small>
-                                  <!-- <small class="d-block text-muted font-italic">
+                        <a href="<?= site_url(); ?>laporan/detail/<?= strtolower($laporan->kode_lapor); ?>/<?= $laporan->slug_lapor; ?>" class="text-decoration-none">
+                          <div class="card border-0 shadow-sm p-2 my-3">
+                            <div class="card-body p-0">
+                              <table class="table p-0 m-0 table-borderless">
+                                <tr>
+                                  <td class="pr-0" width="1%">
+                                    <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="48">
+                                  </td>
+                                  <td>
+                                    <span class="text-dark font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
+                                    <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
+                                    <small class="d-block text-muted">
+                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?> <i class="fa fa-university mr-1 ml-3"></i><?= $laporan->nama_instansi; ?>
+                                    </small>
+                                    <!-- <small class="d-block text-muted font-italic">
                                     #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;
                                     <?php switch ($laporan->status_lapor) {
                                       case 0:
@@ -199,31 +202,42 @@
                                         break;
                                     } ?>
                                   </small> -->
-                                </td>
-                              </tr>
-                            </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
                           </div>
-                        </div>
-                      <?php endif; ?>
+                        </a>
+                      <?php
+                        $i_aspirasi++;
+                      endif; ?>
                     <?php endforeach; ?>
+                    <?php if ($i_aspirasi < 1) : ?>
+                      <div class="col pt-3 text-center">
+                        <img src="<?= base_url(); ?>public/assets/img/404-error.png" width="64" height="64">
+                      </div>
+                    <?php endif; ?>
                   </div>
                   <div class="tab-pane fade pt-3" id="pengaduan">
-                    <?php foreach ($laporanList as $laporan) : ?>
+                    <?php
+                    $i_pengaduan = 0;
+                    foreach ($laporanList as $laporan) : ?>
                       <?php if ($laporan->tipe_lapor == 2) : ?>
-                        <div class="card border-0 shadow-sm p-2 my-3">
-                          <div class="card-body p-0">
-                            <table class="table p-0 m-0 table-borderless">
-                              <tr>
-                                <td class="pr-0" width="1%">
-                                  <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="48">
-                                </td>
-                                <td>
-                                  <span class="font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
-                                  <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
-                                  <small class="d-block text-muted">
-                                    <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-university mr-1"></i><?= $laporan->nama_instansi; ?>
-                                  </small>
-                                  <!-- <small class="d-block text-muted font-italic">
+                        <a href="<?= site_url(); ?>laporan/detail/<?= strtolower($laporan->kode_lapor); ?>/<?= $laporan->slug_lapor; ?>" class="text-decoration-none">
+                          <div class="card border-0 shadow-sm p-2 my-3">
+                            <div class="card-body p-0">
+                              <table class="table p-0 m-0 table-borderless">
+                                <tr>
+                                  <td class="pr-0" width="1%">
+                                    <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/user.png" alt="User Avatar" width="48">
+                                  </td>
+                                  <td>
+                                    <span class="text-dark font-weight-bold"><?= strlen($laporan->judul_lapor) > 64 ? substr($laporan->judul_lapor, 0, 64) . "..." : $laporan->judul_lapor; ?></span>
+                                    <p class="text-muted mb-2"><?= strlen($laporan->isi_lapor) > 96 ? substr($laporan->isi_lapor, 0, 96) . "..." : $laporan->isi_lapor; ?></p>
+                                    <small class="d-block text-muted">
+                                      <i class="fa fa-clock-o mr-1"></i><?= strftime('%A, &nbsp; %e %B %Y', strtotime($laporan->tanggal_lapor)); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-university mr-1"></i><?= $laporan->nama_instansi; ?>
+                                    </small>
+                                    <!-- <small class="d-block text-muted font-italic">
                                     #<?= $laporan->kode_lapor; ?>&nbsp;-&nbsp;
                                     <?php switch ($laporan->status_lapor) {
                                       case 0:
@@ -240,13 +254,21 @@
                                         break;
                                     } ?>
                                   </small> -->
-                                </td>
-                              </tr>
-                            </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
                           </div>
-                        </div>
-                      <?php endif; ?>
+                        </a>
+                      <?php
+                        $i_pengaduan++;
+                      endif; ?>
                     <?php endforeach; ?>
+                    <?php if ($i_pengaduan < 1) : ?>
+                      <div class="col pt-3 text-center">
+                        <img src="<?= base_url(); ?>public/assets/img/404-error.png" width="64" height="64">
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
@@ -302,22 +324,29 @@
               <div class="form-group">
                 <h5 class="font-weight-bold mb-4">Instansi Terbaru</h5>
                 <?php foreach ($instansiUserList as $instansi) : ?>
-                  <div class="card border-0 shadow-sm p-2 my-3">
-                    <div class="card-body p-0">
-                      <table class="table p-0 m-0 table-borderless">
-                        <tr>
-                          <td class="pr-0" width="1%">
-                            <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/instansi.png" alt="Unit Instansi KM" width="48">
-                          </td>
-                          <td>
-                            <span class="font-weight-bold"><?= $instansi->nama_instansi; ?></span>
-                            <p class="text-muted mb-2"><?= strlen($instansi->deskripsi_instansi) > 64 ? substr($instansi->deskripsi_instansi, 0, 64) . "..." : $instansi->deskripsi_instansi; ?></p>
-                          </td>
-                        </tr>
-                      </table>
+                  <a href="<?= site_url(); ?>instansi/detail/<?= strtolower($instansi->id_instansi); ?>" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm p-2 my-3">
+                      <div class="card-body p-0">
+                        <table class="table p-0 m-0 table-borderless">
+                          <tr>
+                            <td class="pr-0" width="1%">
+                              <img class="img shadow-sm rounded-circle" src="<?= base_url(); ?>public/assets/img/instansi.png" alt="Unit Instansi KM" width="48">
+                            </td>
+                            <td>
+                              <span class="font-weight-bold"><?= $instansi->nama_instansi; ?></span>
+                              <p class="text-muted mb-2"><?= strlen($instansi->deskripsi_instansi) > 64 ? substr($instansi->deskripsi_instansi, 0, 64) . "..." : $instansi->deskripsi_instansi; ?></p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 <?php endforeach; ?>
+                <?php if (empty($instansiUserList)) : ?>
+                  <div class="col pt-3 text-center">
+                    <img src="<?= base_url(); ?>public/assets/img/404-error.png" width="64" height="64">
+                  </div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
