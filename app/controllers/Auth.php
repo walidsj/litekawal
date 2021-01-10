@@ -96,7 +96,7 @@ class Auth extends CI_Controller
 
 			if ($sendMail) {
 				$dataPelapor = [
-					'nama_pelapor' => $nama,
+					'nama_pelapor' => htmlspecialchars($nama),
 					'email_pelapor' => $email,
 					'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
 					'npm_pelapor' => $this->input->post('npm_pelapor', true),

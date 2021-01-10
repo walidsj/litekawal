@@ -371,8 +371,7 @@
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                            <tr>
                               <td>
-                                 <img height="64" src="<?= base_url('public/assets/img/logo-warna.svg'); ?>" alt="<?= getenv('app.TitleName'); ?>">
-                                 <br />
+                                 <h3><?= getenv('app.TitleName'); ?></h3>
                                  <br />
                                  <p>Hai, <strong><?= $nama; ?></strong> (<?= $email; ?>)!<br /><br />Berikut tautan untuk reset kata sandi Kamu.</p>
                                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">

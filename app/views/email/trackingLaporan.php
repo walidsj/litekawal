@@ -373,7 +373,7 @@
                               <td>
                                  <h3><?= getenv('app.TitleName'); ?></h3>
                                  <br />
-                                 <p>Hai, <strong><?= $nama; ?></strong> (<?= $email; ?>)!<br /><br />Terima kasih sudah mendaftar akun di portal <?= getenv('app.TitleName'); ?> (<?= site_url(); ?>). Silakan lakukan verifikasi email akun Kamu untuk merasakan pengalaman menggunakan portal layanan aspirasi mahasiswa PKN STAN lebih ekslusif.</p>
+                                 <p>Laporan tipe <?= ($tipe_lapor == 1) ? 'Aspirasi' : 'Pengaduan'; ?> kamu yang berjudul <strong><?= $judul_lapor; ?></strong> berhasil terkirim dan dalam pemrosesan. Gunakan tracking ID <strong>#<?= $kode_lapor; ?></strong> untuk memantau progres laporan.</p>
                                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                     <tbody>
                                        <tr>
@@ -381,7 +381,7 @@
                                              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                                 <tbody>
                                                    <tr>
-                                                      <td> <a href="<?= site_url(); ?>auth/email-verify?e=<?= urlencode($email); ?>&t=<?= urlencode($token); ?>" target="_blank">Verifikasi Email</a> </td>
+                                                      <td> <a href="<?= site_url(); ?>laporan/detail/<?= strtolower($kode_lapor); ?>/<?= $slug_lapor; ?>" target="_blank">Tracking Laporan</a> </td>
                                                    </tr>
                                                 </tbody>
                                              </table>

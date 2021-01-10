@@ -57,8 +57,8 @@ class Dashboard extends CI_Controller
 
 			$emaildata = [
 				'to' => $this->userPelapor->email_pelapor,
-				'subject' => 'Laporan Sedang Diproses',
-				'message' => 'Tracking laporan'
+				'subject' => 'Laporan #' . $itemLapor['kode_lapor'] . ' Sedang Diproses',
+				'message' => $this->load->view('email/trackingLaporan', $itemLapor, true)
 			];
 
 			$this->load->helper('sendmail_helper');
