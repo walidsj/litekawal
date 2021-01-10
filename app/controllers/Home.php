@@ -82,59 +82,99 @@ class Home extends CI_Controller
 
 		$validation = $this->form_validation;
 		$pelapor = $this->Pelapor_model;
-		$validation->set_rules($pelapor->rules());
+		if ($this->session->laporan['anonim_lapor'] == 1) {
+			$validation->set_rules('email_pelapor', 'Alamat Email Aktif', 'required|valid_email|trim|max_length[128]|is_unique[pelapor.email_pelapor]', ['is_unique' => 'Alamat Email telah terdaftar']);
+			$validation->set_rules('check_pelapor', 'Persetujuan', 'required');
+		} else {
+			$validation->set_rules($pelapor->rules());
+		}
 
 		if ($validation->run() == true) {
+			// validation anonim
 			$email = $this->input->post('email_pelapor', true);
-			$emaildata = [
-				'to' => $email,
-				'subject' => 'Laporan Sedang Diproses',
-				'message' => 'Tracking laporan'
-			];
 
-			$this->load->helper('sendmail_helper');
-			$sendMail = sendmail($emaildata);
-
-			if ($sendMail) {
-				$dataPelapor = [
-					'nama_pelapor' => $this->input->post('nama_pelapor', true),
-					'email_pelapor' => $email,
-					'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
-					'npm_pelapor' => $this->input->post('npm_pelapor', true),
-					'kontak_pelapor' => $this->input->post('kontak_pelapor'),
-					'created_pelapor' => date('Y-m-d H:i:s', now()),
-					'updated_pelapor' => date('Y-m-d H:i:s', now()),
-					'status_pelapor' => 0
+			if ($this->session->laporan['anonim_lapor'] == 1) {
+				$emaildata = [
+					'to' => $email,
+					'subject' => 'Laporan #' . $this->session->laporan['kode_lapor'] . ' Sedang Diproses',
+					'message' => $this->load->view('email/trackingLaporan', $this->session->laporan, true)
 				];
 
-				$this->db->insert('pelapor', $dataPelapor);
-				$resultPelapor = $this->db->affected_rows();
+				$this->load->helper('sendmail_helper');
+				$sendMail = sendmail($emaildata);
 
-				if ($resultPelapor > 0) {
-					$getPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
-					$dataLaporan = array_merge(['idpelapor_lapor' => $getPelapor->id_pelapor], $this->session->laporan);
-
-					$this->db->insert('laporan', $dataLaporan);
+				if ($sendMail) {
+					$this->db->insert('laporan', $this->session->laporan);
 					$laporanResult = $this->db->affected_rows();
 
 					if ($laporanResult > 0) {
 						$this->session->unset_userdata('laporan');
-						$this->session->set_flashdata('alert', 'success|Laporan terkirim dan akun Kamu telah dibuat. Login dengan akun Kamu jika kirim laporan lagi.');
+						$this->session->set_flashdata('alert', 'success|Laporan terkirim. Periksa inbox ' . $email . ' untuk track laporan Kamu');
 						redirect('/');
 					} else {
-						$errCode = '(x004)';
+						$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami.');
+						redirect('/');
 					}
 				} else {
-					$errCode = '(x003)';
+					$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami.');
+					redirect(current_url());
 				}
 			} else {
-				$errCode = '(x002)';
-			}
+				// if laporan isnot anonim
+				$emaildata = [
+					'to' => $email,
+					'subject' => 'Laporan #' . $this->session->laporan['kode_lapor'] . ' Sedang Diproses',
+					'message' => $this->load->view('email/trackingLaporan', $this->session->laporan, true)
+				];
 
-			$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. ' . $errCode);
-			redirect(current_url());
+				$this->load->helper('sendmail_helper');
+				$sendMail = sendmail($emaildata);
+
+				if ($sendMail) {
+					$dataPelapor = [
+						'nama_pelapor' => $this->input->post('nama_pelapor', true),
+						'email_pelapor' => $email,
+						'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
+						'npm_pelapor' => $this->input->post('npm_pelapor', true),
+						'kontak_pelapor' => $this->input->post('kontak_pelapor'),
+						'created_pelapor' => date('Y-m-d H:i:s', now()),
+						'updated_pelapor' => date('Y-m-d H:i:s', now()),
+						'status_pelapor' => 0
+					];
+
+					$this->db->insert('pelapor', $dataPelapor);
+					$resultPelapor = $this->db->affected_rows();
+
+					if ($resultPelapor > 0) {
+						$getPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+						$dataLaporan = array_merge(['idpelapor_lapor' => $getPelapor->id_pelapor], $this->session->laporan);
+
+						$this->db->insert('laporan', $dataLaporan);
+						$laporanResult = $this->db->affected_rows();
+
+						if ($laporanResult > 0) {
+							$this->session->unset_userdata('laporan');
+							$this->session->set_flashdata('alert', 'success|Laporan terkirim dan akun Kamu telah dibuat. Login dengan akun Kamu jika kirim laporan lagi.');
+							redirect('/');
+						} else {
+							$errCode = '(x004)';
+						}
+					} else {
+						$errCode = '(x003)';
+					}
+				} else {
+					$errCode = '(x002)';
+				}
+
+				$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. ' . $errCode);
+				redirect(current_url());
+			}
 		} else {
-			$this->load->view('pages/guest/next-step', $data);
+			if ($this->session->laporan['anonim_lapor'] == 1) {
+				$this->load->view('pages/guest/nextStepAnonim', $data);
+			} else {
+				$this->load->view('pages/guest/next-step', $data);
+			}
 		}
 	}
 
@@ -154,6 +194,80 @@ class Home extends CI_Controller
 
 		$this->load->view('pages/guest/instansiPage', $data);
 	}
+
+	// public function next_step()
+	// {
+	// 	$this->load->model('Pelapor_model');
+
+	// 	$data['title'] = 'Lengkapi Data';
+
+	// 	if ($this->input->get('go') == 'back') {
+	// 		$this->session->unset_userdata('laporan');
+	// 		$this->session->set_flashdata('alert', 'success|Laporan Kamu berhasil dibatalkan. Isi laporan lagi jika ingin mengirim.');
+	// 		redirect('/');
+	// 	}
+
+	// 	if (empty($this->session->laporan)) {
+	// 		redirect('/');
+	// 	}
+
+	// 	$validation = $this->form_validation;
+	// 	$pelapor = $this->Pelapor_model;
+	// 	$validation->set_rules($pelapor->rules());
+
+	// 	if ($validation->run() == true) {
+	// 		$email = $this->input->post('email_pelapor', true);
+	// 		$emaildata = [
+	// 			'to' => $email,
+	// 			'subject' => 'Laporan Sedang Diproses',
+	// 			'message' => 'Tracking laporan'
+	// 		];
+
+	// 		$this->load->helper('sendmail_helper');
+	// 		$sendMail = sendmail($emaildata);
+
+	// 		if ($sendMail) {
+	// 			$dataPelapor = [
+	// 				'nama_pelapor' => $this->input->post('nama_pelapor', true),
+	// 				'email_pelapor' => $email,
+	// 				'password_pelapor' => password_hash($this->input->post('password_pelapor', true), PASSWORD_DEFAULT),
+	// 				'npm_pelapor' => $this->input->post('npm_pelapor', true),
+	// 				'kontak_pelapor' => $this->input->post('kontak_pelapor'),
+	// 				'created_pelapor' => date('Y-m-d H:i:s', now()),
+	// 				'updated_pelapor' => date('Y-m-d H:i:s', now()),
+	// 				'status_pelapor' => 0
+	// 			];
+
+	// 			$this->db->insert('pelapor', $dataPelapor);
+	// 			$resultPelapor = $this->db->affected_rows();
+
+	// 			if ($resultPelapor > 0) {
+	// 				$getPelapor = $this->db->get_where('pelapor', ['email_pelapor' => $email])->row();
+	// 				$dataLaporan = array_merge(['idpelapor_lapor' => $getPelapor->id_pelapor], $this->session->laporan);
+
+	// 				$this->db->insert('laporan', $dataLaporan);
+	// 				$laporanResult = $this->db->affected_rows();
+
+	// 				if ($laporanResult > 0) {
+	// 					$this->session->unset_userdata('laporan');
+	// 					$this->session->set_flashdata('alert', 'success|Laporan terkirim dan akun Kamu telah dibuat. Login dengan akun Kamu jika kirim laporan lagi.');
+	// 					redirect('/');
+	// 				} else {
+	// 					$errCode = '(x004)';
+	// 				}
+	// 			} else {
+	// 				$errCode = '(x003)';
+	// 			}
+	// 		} else {
+	// 			$errCode = '(x002)';
+	// 		}
+
+	// 		$this->session->set_flashdata('alert', 'error|Laporan Kamu gagal kami proses. Silakan coba lagi atau hubungi tim kami. ' . $errCode);
+	// 		redirect(current_url());
+	// 	} else {
+	// 		$this->load->view('pages/guest/next-step', $data);
+	// 	}
+	// }
 }
 
 /* List of error code =>
